@@ -162,7 +162,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
         if (key == KeyEvent.VK_UP) {
             upPressed = false;
         }
-
 	}
 	
 	public void keyTyped(KeyEvent arg0) {
