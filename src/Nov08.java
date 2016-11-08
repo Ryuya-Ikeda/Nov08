@@ -23,6 +23,10 @@ public class Nov08 extends JFrame{
 		pack();
 	}
 	
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Nov08 frame = new Nov08();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

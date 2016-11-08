@@ -4,6 +4,8 @@ import java.awt.Point;
 /**
  * ゲームの主人公の設定
  * マ〇オ,ワ〇オ
+ * @author riked
+ *
  */
 
 public class Player extends Sprite{
@@ -103,8 +105,8 @@ public class Player extends Sprite{
 	}
 
 	/**
-     * プレイヤーを描画（オーバーライド）
-     */
+	 * プレイヤーを描画（オーバーライド）
+	 */
     public void Draw(Graphics g, int relativeX, int relativeY) {
         g.drawImage(image,
                 (int)x + relativeX,

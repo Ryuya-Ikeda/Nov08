@@ -9,8 +9,9 @@ import javax.swing.ImageIcon;
  * 主人公や敵キャラクター、その他オブジェクトなどは
  * すべてこのクラスを継承して作る
  * ただし、ブロックはかなり数が多いので省く。
+ * @author riked
+ *
  */
-
 public abstract class Sprite {
 
 	//位置
@@ -46,7 +47,7 @@ public abstract class Sprite {
 		AnimationThread thread = new AnimationThread();
 		thread.start();
 	}
-
+	
     public double GetX() {
         return x;
     }
@@ -70,6 +71,9 @@ public abstract class Sprite {
 
 	/**
 	 * 描画
+	 * @param g
+	 * @param relative_x
+	 * @param relative_y
 	 */
 	public void Draw(Graphics g, int relative_x, int relative_y){
 		g.drawImage(image,
@@ -85,6 +89,8 @@ public abstract class Sprite {
 
 	/**
 	 * 他の物体とぶつかっているか
+	 * @param sprite
+	 * @return
 	 */
 	public boolean Contact(Sprite sprite){
 		Rectangle player = new Rectangle((int)x, (int)y, width, height);
@@ -96,6 +102,7 @@ public abstract class Sprite {
 
 	/**
 	 * 画像をロード
+	 * @param fileName
 	 */
 	private void LoadImage(String fileName){
 		ImageIcon icon = new ImageIcon(getClass().getResource("image/" + fileName));
@@ -104,6 +111,8 @@ public abstract class Sprite {
 
 	/**
 	 * アニメーション表示を行うためのスレッド
+	 * @author riked
+	 *
 	 */
 	private class AnimationThread extends Thread{
 		public void run(){

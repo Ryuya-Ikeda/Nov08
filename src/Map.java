@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
  * マップの設定
  * マップデータの読み込み、マップデータの更新、マップ内での衝突など
  * 処理していく
+ * @author riked
  */
 public class Map {
 	//タイルの大きさ
@@ -68,6 +69,8 @@ public class Map {
 
 	/**
 	 * ピクセル単位をタイル単位に変更する
+	 * @param pixels
+	 * @return
 	 */
 	public static int PixelsToTiles(double pixels) {
 		return (int)Math.floor(pixels / TILE_SIZE);
@@ -75,6 +78,8 @@ public class Map {
 
 	/**
 	 * タイル単位をピクセル単位に変更する
+	 * @param tiles
+	 * @return
 	 */
 	public static int TilesToPixels(int tiles) {
 		return tiles * TILE_SIZE;
@@ -82,6 +87,9 @@ public class Map {
 
 	/**
 	 * マップの描画
+	 * @param g
+	 * @param relative_x
+	 * @param relative_y
 	 */
 	public void Draw(Graphics g, int relative_x, int relative_y){
 		//引数から描画範囲を考える
@@ -112,6 +120,10 @@ public class Map {
 
 	/**
 	 * 引数のnewX,newYでぶつかるブロックの座標を返す
+	 * @param sprite
+	 * @param newX
+	 * @param newY
+	 * @return
 	 */
 	public Point GetTileCllision(Sprite sprite, double newX, double newY){
 
@@ -152,6 +164,7 @@ public class Map {
 
 	/**
 	 * マップをロード
+	 * @param fileName
 	 */
 	private void Load(String fileName){
 		map = new char[ROW][COL];
@@ -189,22 +202,33 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int GetWidth() {
 		return width;
 	}
 
-
+	/**
+	 * 
+	 * @return
+	 */
 	public int GetHeight() {
 		return height;
 	}
 
 	/**
-	 *物体のLinkedListを返す
+	 * 物体のLinkedListを返す
+	 * @return
 	 */
 	public LinkedList GetSprites() {
 		return sprites;
 	}
 	
+	/**
+	 * マップの更新
+	 */
 	public void Lotation(){
 		String str = " "; 
 		//マップをずらす

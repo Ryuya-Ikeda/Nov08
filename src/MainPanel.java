@@ -13,8 +13,9 @@ import javax.swing.JPanel;
  * ゲームの各種設定をしていく
  * 実質的にゲームを動かしているのはこのクラス
  * mainから呼ばれて動作をしていく
+ * @author riked
+ *
  */
-
 public class MainPanel extends JPanel implements Runnable, KeyListener{
 	//パネルサイズ
 	//public static final int WIDTH = 640;
