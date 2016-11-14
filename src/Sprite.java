@@ -31,11 +31,15 @@ public abstract class Sprite {
 
 	//マップへの参照
 	protected Map map;
+	
+	//Mainpanelへの参照
+	protected MainPanel mainpanel;
 
-	public Sprite(double x, double y, String fileName, Map map){
+	public Sprite(double x, double y, String fileName, Map map, MainPanel mainpanel){
 		this.x = x;
 		this.y = y;
 		this.map = map;
+		this.mainpanel = mainpanel;
 
 		width = 32;
 		height = 32;

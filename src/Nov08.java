@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 public class Nov08 extends JFrame{
 	public Nov08(){
 		//タイトル
-		setTitle("でんぱ組.int_作品");
+		setTitle("電波組.INT_作品");
 		//サイズ変更不可
 		setResizable(false);
 		

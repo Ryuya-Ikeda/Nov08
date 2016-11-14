@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -37,6 +38,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	// ゲームループ用スレッド
 	private Thread gameLoop;
 
+	//private static boolean gameflag = true; //ゲームの続行フラグ
+	
 	public MainPanel(){
 		//パネルの推奨サイズを決定。自動で画面サイズを決める"pack()"を使うのに必要
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
@@ -46,22 +49,29 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 		//マップ作成
 		map = new Map("map01.dat");
 
-		player = new Player(192, 32, "player.gif", map);
+		player = new Player(192, 32, "player.gif", map,this);
 
 		// キーイベントリスナーを登録
 		addKeyListener(this);
 
 		// ゲームループ開始
-		gameLoop = new Thread(this);
-		gameLoop.start();
+		start();
 	}
 
+	public void start(){
+		if(gameLoop == null){
+			gameLoop = new Thread(this);
+			gameLoop.start();
+		}
+	}
+	
 	/**
 	 * ゲームループ
 	 */
 	@Override
 	public void run(){
-		while(true){
+		Thread thisThread = Thread.currentThread();
+		while(gameLoop == thisThread){
 			if(upPressed){
 				player.Jump();
 			}
@@ -102,14 +112,19 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 			// 休止
 			try {
-				Thread.sleep(20);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 
 	}
-
+	
+	public void stop(){
+		gameLoop = null;
+	}
+	
+	
 	/**
 	 * 描画処理
 	 */
@@ -166,4 +181,14 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	
 	public void keyTyped(KeyEvent arg0) {
 	}
+	
+    /**
+     * ゲームオーバーの処理
+     */
+    public void GameOver(){
+    	JOptionPane.showMessageDialog(null, "ERROR_MESSAGE");
+    	stop();
+    }
+    
+    
 }

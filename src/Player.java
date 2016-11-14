@@ -1,6 +1,8 @@
 import java.awt.Graphics;
 import java.awt.Point;
 
+import javax.swing.JOptionPane;
+
 /**
  * ゲームの主人公の設定
  * マ〇オ,ワ〇オ
@@ -12,7 +14,7 @@ public class Player extends Sprite{
 	//スピード
 	private int speed = 6;
 	//ジャンプ力
-	private int jump_speed = 12;
+	private int jump_speed = 20;
 
 	//速度
 	//protected int vx;
@@ -21,9 +23,12 @@ public class Player extends Sprite{
 	//地面に足がついているか判定
 	private boolean onGround;
 
-	public Player(double x, double y, String fileName, Map map){
-		super(x,y,fileName,map);
-
+	//元のx座標の位置を保持
+	private static double initial_px;
+	
+	public Player(double x, double y, String fileName, Map map, MainPanel mainpanel){
+		super(x,y,fileName,map,mainpanel);
+		initial_px = x;
 		//vx = 0;
 		vy = 0;
 		onGround = false;
@@ -55,28 +60,40 @@ public class Player extends Sprite{
 	}
 
 	/**
-	 * 状態を更新
+	 * 
 	 */
+	@Override
 	public void Update(){
 		//重力で下向きに加速度がかかる
 		vy += Map.GRAVITY;
 		Point tile;
-
+		
+		/*
+		 * ゲームオーバー判定
+		 */
+		if(x<0 || y > MainPanel.HEIGHT || y < 0){
+			mainpanel.GameOver();
+			return;
+		}
+		
 		//x方向の当たり判定
-		//double newX = x + vx;//移動先座標を決定
+		//double newX = x /*+ vx*/;//移動先座標を決定
 		/*
 		 * 移動先座標で衝突するタイルの位置を取得
 		 * x方向だけ考える
 		 */
 		//tile = map.GetTileCllision(this, newX, y);
+		tile = map.GetTileCllision(this, x, y);
 		//衝突するタイルがないので
-		//if(tile == null){
-		//	x = newX;//移動
-		//} else {
-		//	//衝突するタイルがあるのでブロックにめり込まないように位置調整
-		//	x = Map.TilesToPixels(tile.x) - width;
-		//	vx = 0; //速度を0へ
-		//}
+		if(tile == null){
+			if(x < initial_px){
+				x += 2; //x方向に進める
+			}
+		} else {
+			//衝突するタイルがあるのでブロックにめり込まないように位置調整
+			x = Map.TilesToPixels(tile.x) - width;
+			//vx = 0; //速度を0へ
+		}
 
 		//y方向の当たり判定
 		double newY = y + vy;
@@ -102,6 +119,7 @@ public class Player extends Sprite{
 				vy = 0;
 			}
 		}
+		
 	}
 
 	/**
@@ -117,4 +135,5 @@ public class Player extends Sprite{
                 count * width + width, height,
                 null);
     }
+    
 }
