@@ -1,9 +1,9 @@
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -44,16 +44,18 @@ public class Map {
 
 	//乱数を使用するために
 	Random rnd = new Random();
-	
+
 	//マップの更新回数(マップの次のデータを読み込むキューとして活用)
 	private int update_map_num = 0;
-	
+
 	//マップの数
 	private static final int MAP_NUM = 1;
 
-	public Map(String fileName){
-		sprites = new LinkedList();
+	private MainPanel mainPanel;
 
+	public Map(String fileName, MainPanel mainPanel){
+		sprites = new LinkedList();
+		this.mainPanel = mainPanel;
 		//マップのロード
 		Load(fileName);
 		//控えのマップのロード
@@ -188,20 +190,15 @@ public class Map {
 				line = br.readLine(); //1行読み取り
 				for(int j = 0; j < COL; j++){
 					map[i][j] = line.charAt(j);
-					switch (map[i][j]) {
-					/* case 'o':
-						sprites.add(new Coin(tilesToPixels(j), tilesToPixels(i), "coin.gif", this));
-						break;
-						//この先描画するブロックの種類が増えるなら追加
-					 */
-					}
+					if(map[i][j] != ' ')
+					Sprite_load(i, j, map);
 				}
 			}
 		} catch (Exception e){
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -225,7 +222,7 @@ public class Map {
 	public LinkedList GetSprites() {
 		return sprites;
 	}
-	
+
 	/**
 	 * マップの更新
 	 */
@@ -240,6 +237,7 @@ public class Map {
 		//次のマップを読み込ませる
 		for(int i = 0; i < ROW; i++){
 			map[i][COL-1] = next_map[i][0];
+			Sprite_load(i, COL-1, map);
 		}
 		//次に読み込ませるマップをずらす
 		for(int i = 0; i < ROW - 1; i++){
@@ -248,18 +246,50 @@ public class Map {
 			}
 		}
 		//空いたスペースを埋める
-		
 		for(int i = 0; i < ROW; i++){
 			next_map[i][COL-1] = str.charAt(0);
 		}
-		
-		//System.out.println(next_map.length);
-		
+
+		Iterator iterator = sprites.iterator();
+		while (iterator.hasNext()) {
+			Sprite sprite = (Sprite)iterator.next();
+			if (sprite instanceof Coin) {
+				sprite.x -= TILE_SIZE;
+			}
+			if(sprite.x < 0){
+				iterator.remove();
+			}
+		}
+
 		update_map_num++;
 		if(update_map_num == COL){
-			//Reflection(next_map, "map" + (rnd.nextInt(MAP_NUM) + 1) + ".dat");
 			Reflection(next_map, "map01.dat");
 			update_map_num = 0;
+		}
+	}
+
+	/**
+	 * マップ中の引数の位置のスプライトを削除
+	 * @param x
+	 * @param y
+	 */
+	public void Sprite_delete(int x, int y){
+		System.out.printf("x:%d y:%d \n", x,y);
+		map[y][x] = ' ';
+	}
+
+	/**
+	 * 指定した位置の配列からスプライトを読み込ませる
+	 * @param i
+	 * @param j
+	 * @param map
+	 */
+	public void Sprite_load(int i, int j, char map[][]){
+		switch (map[i][j]) {
+		case 'o':
+			sprites.add(new Coin((double)TilesToPixels(j), (double)TilesToPixels(i), "coin.gif", this, mainPanel));
+			break;
+			//この先描画するブロックの種類が増えるなら追加
 		}
 	}
 }

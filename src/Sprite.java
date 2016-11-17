@@ -32,14 +32,17 @@ public abstract class Sprite {
 	//マップへの参照
 	protected Map map;
 	
-	//Mainpanelへの参照
-	protected MainPanel mainpanel;
+	//MainPanelへの参照
+	protected MainPanel mainPanel;
+	
+	//スコア
+	protected int score = 0;
 
-	public Sprite(double x, double y, String fileName, Map map, MainPanel mainpanel){
+	public Sprite(double x, double y, String fileName, Map map, MainPanel mainPanel){
 		this.x = x;
 		this.y = y;
 		this.map = map;
-		this.mainpanel = mainpanel;
+		this.mainPanel = mainPanel;
 
 		width = 32;
 		height = 32;
@@ -133,5 +136,9 @@ public abstract class Sprite {
 			}
 
 		}
+	}
+	
+	public int Get_Score(){
+		return score;
 	}
 }

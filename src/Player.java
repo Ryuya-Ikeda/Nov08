@@ -26,8 +26,8 @@ public class Player extends Sprite{
 	//元のx座標の位置を保持
 	private static double initial_px;
 	
-	public Player(double x, double y, String fileName, Map map, MainPanel mainpanel){
-		super(x,y,fileName,map,mainpanel);
+	public Player(double x, double y, String fileName, Map map, MainPanel mainPanel){
+		super(x,y,fileName,map,mainPanel);
 		initial_px = x;
 		//vx = 0;
 		vy = 0;
@@ -72,7 +72,7 @@ public class Player extends Sprite{
 		 * ゲームオーバー判定
 		 */
 		if(x<0 || y > MainPanel.HEIGHT || y < 0){
-			mainpanel.GameOver();
+			mainPanel.GameOver();
 			return;
 		}
 		
@@ -135,5 +135,8 @@ public class Player extends Sprite{
                 count * width + width, height,
                 null);
     }
-    
+
+	public void Add_Score(int score){
+		this.score += score;
+	}
 }
