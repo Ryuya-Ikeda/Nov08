@@ -3,23 +3,23 @@ import java.awt.Container;
 import javax.swing.JFrame;
 
 /**
- * ƒvƒƒOƒ‰ƒ€‚ÌªŠ²
- * mainŠÖ”’u‚¢‚Ä‚¢‚Ü‚·
- * Šî–{“I‚É‚¢‚¶‚é•K—v‚È‚¢BBB‚Í‚¸
+ * ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®æ ¹å¹¹
+ * mainé–¢æ•°ç½®ã„ã¦ã„ã¾ã™
+ * åŸºæœ¬çš„ã«ã„ã˜ã‚‹å¿…è¦ãªã„ã€‚ã€‚ã€‚ã¯ãš
  */
 public class Nov08 extends JFrame{
 	public Nov08(){
-		//ƒ^ƒCƒgƒ‹
-		setTitle("‚Å‚ñ‚Ï‘g.int_ì•i");
-		//ƒTƒCƒY•ÏX•s‰Â
+		//ã‚¿ã‚¤ãƒˆãƒ«
+		setTitle("ã§ã‚“ã±çµ„.int_ä½œå“");
+		//ã‚µã‚¤ã‚ºå¤‰æ›´ä¸å¯
 		setResizable(false);
 		
-		//ƒƒCƒ“ƒpƒlƒ‹‚ğì¬AƒtƒŒ[ƒ€‚É’Ç‰Á
+		//ãƒ¡ã‚¤ãƒ³ãƒ‘ãƒãƒ«ã‚’ä½œæˆã€ãƒ•ãƒ¬ãƒ¼ãƒ ã«è¿½åŠ 
 		MainPanel panel = new MainPanel();
 		Container contentPane = getContentPane();
 		contentPane.add(panel);
 		
-		//ƒpƒlƒ‹ƒTƒCƒY‚É‡‚í‚¹‚ÄƒtƒŒ[ƒ€ƒTƒCƒY‚ğ©“®Œˆ’è
+		//ãƒ‘ãƒãƒ«ã‚µã‚¤ã‚ºã«åˆã‚ã›ã¦ãƒ•ãƒ¬ãƒ¼ãƒ ã‚µã‚¤ã‚ºã‚’è‡ªå‹•æ±ºå®š
 		pack();
 	}
 	

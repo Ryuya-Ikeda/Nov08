@@ -10,65 +10,65 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
- * ƒ}ƒbƒv‚Ìİ’è
- * ƒ}ƒbƒvƒf[ƒ^‚Ì“Ç‚İ‚İAƒ}ƒbƒvƒf[ƒ^‚ÌXVAƒ}ƒbƒv“à‚Å‚ÌÕ“Ë‚È‚Ç
- * ˆ—‚µ‚Ä‚¢‚­
+ * ãƒãƒƒãƒ—ã®è¨­å®š
+ * ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿ã€ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã®æ›´æ–°ã€ãƒãƒƒãƒ—å†…ã§ã®è¡çªãªã©
+ * å‡¦ç†ã—ã¦ã„ã
  * @author riked
  */
 public class Map {
-	//ƒ^ƒCƒ‹‚Ì‘å‚«‚³
+	//ã‚¿ã‚¤ãƒ«ã®å¤§ãã•
 	public static final int TILE_SIZE = 32;
-	//d—Í
+	//é‡åŠ›
 	public static final double GRAVITY = 1.0;
 
-	//ƒ}ƒbƒv
+	//ãƒãƒƒãƒ—
 	private char[][] map;
 
-	//T‚¦‚Ìƒ}ƒbƒv
+	//æ§ãˆã®ãƒãƒƒãƒ—
 	private char[][] next_map;
 
-	// s”
+	// è¡Œæ•°
 	private static final int ROW = 20;
-	// —ñ”
+	// åˆ—æ•°
 	private static final int COL = 60;
-	//•
+	//å¹…
 	private int width;
-	//‚‚³
+	//é«˜ã•
 	private int height;
 
-	//ƒuƒƒbƒN‚Ì‰æ‘œ
+	//ãƒ–ãƒ­ãƒƒã‚¯ã®ç”»åƒ
 	private Image blockImg;
 
-	//•¨‘Ì‚ÌƒŠƒXƒg
+	//ç‰©ä½“ã®ãƒªã‚¹ãƒˆ
 	private LinkedList sprites;
 
-	//—”‚ğg—p‚·‚é‚½‚ß‚É
+	//ä¹±æ•°ã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã«
 	Random rnd = new Random();
 	
-	//ƒ}ƒbƒv‚ÌXV‰ñ”(ƒ}ƒbƒv‚ÌŸ‚Ìƒf[ƒ^‚ğ“Ç‚İ‚ŞƒLƒ…[‚Æ‚µ‚ÄŠˆ—p)
+	//ãƒãƒƒãƒ—ã®æ›´æ–°å›æ•°(ãƒãƒƒãƒ—ã®æ¬¡ã®ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€ã‚­ãƒ¥ãƒ¼ã¨ã—ã¦æ´»ç”¨)
 	private int update_map_num = 0;
 	
-	//ƒ}ƒbƒv‚Ì”
+	//ãƒãƒƒãƒ—ã®æ•°
 	private static final int MAP_NUM = 1;
 
 	public Map(String fileName){
 		sprites = new LinkedList();
 
-		//ƒ}ƒbƒv‚Ìƒ[ƒh
+		//ãƒãƒƒãƒ—ã®ãƒ­ãƒ¼ãƒ‰
 		Load(fileName);
-		//T‚¦‚Ìƒ}ƒbƒv‚Ìƒ[ƒh
+		//æ§ãˆã®ãƒãƒƒãƒ—ã®ãƒ­ãƒ¼ãƒ‰
 		//Reflection(next_map, "map" + (rnd.nextInt(MAP_NUM) + 1) + ".dat");
 		Reflection(next_map, "map01.dat");
 		width = TILE_SIZE * COL;
 		height = TILE_SIZE * ROW;
 
-		//‰æ‘œ‚Ìƒ[ƒh
+		//ç”»åƒã®ãƒ­ãƒ¼ãƒ‰
 		LoadImage();
 
 	}
 
 	/**
-	 * ƒsƒNƒZƒ‹’PˆÊ‚ğƒ^ƒCƒ‹’PˆÊ‚É•ÏX‚·‚é
+	 * ãƒ”ã‚¯ã‚»ãƒ«å˜ä½ã‚’ã‚¿ã‚¤ãƒ«å˜ä½ã«å¤‰æ›´ã™ã‚‹
 	 * @param pixels
 	 * @return
 	 */
@@ -77,7 +77,7 @@ public class Map {
 	}
 
 	/**
-	 * ƒ^ƒCƒ‹’PˆÊ‚ğƒsƒNƒZƒ‹’PˆÊ‚É•ÏX‚·‚é
+	 * ã‚¿ã‚¤ãƒ«å˜ä½ã‚’ãƒ”ã‚¯ã‚»ãƒ«å˜ä½ã«å¤‰æ›´ã™ã‚‹
 	 * @param tiles
 	 * @return
 	 */
@@ -86,21 +86,21 @@ public class Map {
 	}
 
 	/**
-	 * ƒ}ƒbƒv‚Ì•`‰æ
+	 * ãƒãƒƒãƒ—ã®æç”»
 	 * @param g
 	 * @param relative_x
 	 * @param relative_y
 	 */
 	public void Draw(Graphics g, int relative_x, int relative_y){
-		//ˆø”‚©‚ç•`‰æ”ÍˆÍ‚ğl‚¦‚é
+		//å¼•æ•°ã‹ã‚‰æç”»ç¯„å›²ã‚’è€ƒãˆã‚‹
 		int startTileX = PixelsToTiles(-relative_x);
 		int endTileX = startTileX + PixelsToTiles(MainPanel.WIDTH) + 1;
-		//•`‰æ”ÍˆÍ‚ªƒ}ƒbƒv‚æ‚è‘å‚«‚­‚È‚ç‚È‚¢‚æ‚¤‚É’²®
+		//æç”»ç¯„å›²ãŒãƒãƒƒãƒ—ã‚ˆã‚Šå¤§ãããªã‚‰ãªã„ã‚ˆã†ã«èª¿æ•´
 		endTileX = Math.min(endTileX, COL);
 
 		int startTileY = PixelsToTiles(-relative_y);
 		int endTileY = startTileY + PixelsToTiles(MainPanel.HEIGHT) + 1;
-		//•`‰æ”ÍˆÍ‚ªƒ}ƒbƒv‚æ‚è‘å‚«‚­‚È‚ç‚È‚¢‚æ‚¤‚É’²®
+		//æç”»ç¯„å›²ãŒãƒãƒƒãƒ—ã‚ˆã‚Šå¤§ãããªã‚‰ãªã„ã‚ˆã†ã«èª¿æ•´
 		endTileY = Math.min(endTileX, ROW);
 
 		for(int i = startTileY; i < endTileY; i++){
@@ -112,14 +112,14 @@ public class Map {
 							TilesToPixels(i) + relative_y
 							,null);
 					break;
-					/* ‚±‚Ìæ•`‰æ‚·‚éƒuƒƒbƒN‚Ìí—Ş‚ª‘‚¦‚é‚È‚ç’Ç‰Á */
+					/* ã“ã®å…ˆæç”»ã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®ç¨®é¡ãŒå¢—ãˆã‚‹ãªã‚‰è¿½åŠ  */
 				}
 			}
 		}
 	}
 
 	/**
-	 * ˆø”‚ÌnewX,newY‚Å‚Ô‚Â‚©‚éƒuƒƒbƒN‚ÌÀ•W‚ğ•Ô‚·
+	 * å¼•æ•°ã®newX,newYã§ã¶ã¤ã‹ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®åº§æ¨™ã‚’è¿”ã™
 	 * @param sprite
 	 * @param newX
 	 * @param newY
@@ -127,8 +127,8 @@ public class Map {
 	 */
 	public Point GetTileCllision(Sprite sprite, double newX, double newY){
 
-		// ¬”“_ˆÈ‰ºØ‚èã‚°
-		// •‚“®¬”“_‚ÌŠÖŒW‚ÅØ‚èã‚°‚µ‚È‚¢‚ÆÕ“Ë‚µ‚Ä‚È‚¢‚Æ”»’è‚³‚ê‚éê‡‚ª‚ ‚é
+		// å°æ•°ç‚¹ä»¥ä¸‹åˆ‡ã‚Šä¸Šã’
+		// æµ®å‹•å°æ•°ç‚¹ã®é–¢ä¿‚ã§åˆ‡ã‚Šä¸Šã’ã—ãªã„ã¨è¡çªã—ã¦ãªã„ã¨åˆ¤å®šã•ã‚Œã‚‹å ´åˆãŒã‚ã‚‹
 
 		int fromTileX = PixelsToTiles(Math.min(sprite.GetX(), Math.ceil(newX)));
 		int fromTileY = PixelsToTiles(Math.min(sprite.GetY(), Math.ceil(newY)));
@@ -136,10 +136,10 @@ public class Map {
 		int toTileY = PixelsToTiles(Math.max(sprite.GetY(), newY) + sprite.GetHeight() - 1);
 
 
-		//‚Ô‚Â‚©‚Á‚Ä‚¢‚é‚©’T‚µ‚Ä‚¢‚­
+		//ã¶ã¤ã‹ã£ã¦ã„ã‚‹ã‹æ¢ã—ã¦ã„ã
 		for(int x = fromTileX; x <= toTileX; x++){
 			for(int y = fromTileY; y <= toTileY; y++){
-				//‰æ–ÊŠO‚ÍÕ“Ë”»’è‚Æ‚·‚é
+				//ç”»é¢å¤–ã¯è¡çªåˆ¤å®šã¨ã™ã‚‹
 				if(x < 0 || x >= COL){
 					return new Point(x,y);
 				}
@@ -155,7 +155,7 @@ public class Map {
 	}
 
 	/**
-	 * ‰æ‘œ‚ğƒ[ƒh
+	 * ç”»åƒã‚’ãƒ­ãƒ¼ãƒ‰
 	 */
 	private void LoadImage(){
 		ImageIcon icon = new ImageIcon(getClass().getResource("image/block.gif"));
@@ -163,7 +163,7 @@ public class Map {
 	}
 
 	/**
-	 * ƒ}ƒbƒv‚ğƒ[ƒh
+	 * ãƒãƒƒãƒ—ã‚’ãƒ­ãƒ¼ãƒ‰
 	 * @param fileName
 	 */
 	private void Load(String fileName){
@@ -173,26 +173,26 @@ public class Map {
 	}
 
 	/**
-	 * ƒ}ƒbƒv‚Éƒ}ƒbƒvƒtƒ@ƒCƒ‹‚ğ”½‰f‚³‚¹‚éB
+	 * ãƒãƒƒãƒ—ã«ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã‚’åæ˜ ã•ã›ã‚‹ã€‚
 	 * @param map
 	 * @param fileName
 	 */
 	public void Reflection(char map[][], String fileName){
-		String line;//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ—p
+		String line;//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ç”¨
 		try{
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					getClass().getResourceAsStream("map/" + fileName)));
-			//ƒ}ƒbƒv‚ğì¬
+			//ãƒãƒƒãƒ—ã‚’ä½œæˆ
 
 			for(int i = 0; i < ROW; i++){
-				line = br.readLine(); //1s“Ç‚İæ‚è
+				line = br.readLine(); //1è¡Œèª­ã¿å–ã‚Š
 				for(int j = 0; j < COL; j++){
 					map[i][j] = line.charAt(j);
 					switch (map[i][j]) {
 					/* case 'o':
 						sprites.add(new Coin(tilesToPixels(j), tilesToPixels(i), "coin.gif", this));
 						break;
-						//‚±‚Ìæ•`‰æ‚·‚éƒuƒƒbƒN‚Ìí—Ş‚ª‘‚¦‚é‚È‚ç’Ç‰Á
+						//ã“ã®å…ˆæç”»ã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®ç¨®é¡ãŒå¢—ãˆã‚‹ãªã‚‰è¿½åŠ 
 					 */
 					}
 				}
@@ -219,7 +219,7 @@ public class Map {
 	}
 
 	/**
-	 * •¨‘Ì‚ÌLinkedList‚ğ•Ô‚·
+	 * ç‰©ä½“ã®LinkedListã‚’è¿”ã™
 	 * @return
 	 */
 	public LinkedList GetSprites() {
@@ -227,27 +227,27 @@ public class Map {
 	}
 	
 	/**
-	 * ƒ}ƒbƒv‚ÌXV
+	 * ãƒãƒƒãƒ—ã®æ›´æ–°
 	 */
 	public void Lotation(){
 		String str = " "; 
-		//ƒ}ƒbƒv‚ğ‚¸‚ç‚·
+		//ãƒãƒƒãƒ—ã‚’ãšã‚‰ã™
 		for(int i = 0; i < ROW - 1; i++){
 			for(int j = 0; j < COL - 1; j++){
 				map[i][j] = map[i][j+1];
 			}
 		}
-		//Ÿ‚Ìƒ}ƒbƒv‚ğ“Ç‚İ‚Ü‚¹‚é
+		//æ¬¡ã®ãƒãƒƒãƒ—ã‚’èª­ã¿è¾¼ã¾ã›ã‚‹
 		for(int i = 0; i < ROW; i++){
 			map[i][COL-1] = next_map[i][0];
 		}
-		//Ÿ‚É“Ç‚İ‚Ü‚¹‚éƒ}ƒbƒv‚ğ‚¸‚ç‚·
+		//æ¬¡ã«èª­ã¿è¾¼ã¾ã›ã‚‹ãƒãƒƒãƒ—ã‚’ãšã‚‰ã™
 		for(int i = 0; i < ROW - 1; i++){
 			for(int j = 0; j < COL - 1; j++){
 				next_map[i][j] = next_map[i][j+1];
 			}
 		}
-		//‹ó‚¢‚½ƒXƒy[ƒX‚ğ–„‚ß‚é
+		//ç©ºã„ãŸã‚¹ãƒšãƒ¼ã‚¹ã‚’åŸ‹ã‚ã‚‹
 		
 		for(int i = 0; i < ROW; i++){
 			next_map[i][COL-1] = str.charAt(0);

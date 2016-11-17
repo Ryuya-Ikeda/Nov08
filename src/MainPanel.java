@@ -10,14 +10,14 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 
 /**
- * ƒQ[ƒ€‚ÌŠeíİ’è‚ğ‚µ‚Ä‚¢‚­
- * À¿“I‚ÉƒQ[ƒ€‚ğ“®‚©‚µ‚Ä‚¢‚é‚Ì‚Í‚±‚ÌƒNƒ‰ƒX
- * main‚©‚çŒÄ‚Î‚ê‚Ä“®ì‚ğ‚µ‚Ä‚¢‚­
+ * ã‚²ãƒ¼ãƒ ã®å„ç¨®è¨­å®šã‚’ã—ã¦ã„ã
+ * å®Ÿè³ªçš„ã«ã‚²ãƒ¼ãƒ ã‚’å‹•ã‹ã—ã¦ã„ã‚‹ã®ã¯ã“ã®ã‚¯ãƒ©ã‚¹
+ * mainã‹ã‚‰å‘¼ã°ã‚Œã¦å‹•ä½œã‚’ã—ã¦ã„ã
  * @author riked
  *
  */
 public class MainPanel extends JPanel implements Runnable, KeyListener{
-	//ƒpƒlƒ‹ƒTƒCƒY
+	//ãƒ‘ãƒãƒ«ã‚µã‚¤ã‚º
 	//public static final int WIDTH = 640;
 	//public static final int HEIGHT = 480;
 
@@ -25,39 +25,45 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	public static final int HEIGHT = 640;
 
 	
-	// ƒ}ƒbƒv
+	// ãƒãƒƒãƒ—
 	private Map map;
+	
+	// ã‚¹ã‚³ã‚¢
+	private Score score;
 
-	// ƒvƒŒƒCƒ„[
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	private Player player;
 
-	// ƒL[‚Ìó‘Ôi‰Ÿ‚³‚ê‚Ä‚¢‚é‚©A‰Ÿ‚³‚ê‚Ä‚È‚¢‚©j
+	// ã‚­ãƒ¼ã®çŠ¶æ…‹ï¼ˆæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹ã€æŠ¼ã•ã‚Œã¦ãªã„ã‹ï¼‰
 	private boolean upPressed;
 
-	// ƒQ[ƒ€ƒ‹[ƒv—pƒXƒŒƒbƒh
+	// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰
 	private Thread gameLoop;
 
 	public MainPanel(){
-		//ƒpƒlƒ‹‚Ì„§ƒTƒCƒY‚ğŒˆ’èB©“®‚Å‰æ–ÊƒTƒCƒY‚ğŒˆ‚ß‚é"pack()"‚ğg‚¤‚Ì‚É•K—v
+		//ãƒ‘ãƒãƒ«ã®æ¨å¥¨ã‚µã‚¤ã‚ºã‚’æ±ºå®šã€‚è‡ªå‹•ã§ç”»é¢ã‚µã‚¤ã‚ºã‚’æ±ºã‚ã‚‹"pack()"ã‚’ä½¿ã†ã®ã«å¿…è¦
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
-		//ƒL[“ü—Í‚ğ‹–‚·‚æ‚¤‚É‚·‚é
+		//ã‚­ãƒ¼å…¥åŠ›ã‚’è¨±ã™ã‚ˆã†ã«ã™ã‚‹
 		setFocusable(true);
 
-		//ƒ}ƒbƒvì¬
+		//ã‚¹ã‚³ã‚¢è¡¨ç¤º
+		score = new Score();
+		
+		//ãƒãƒƒãƒ—ä½œæˆ
 		map = new Map("map01.dat");
 
 		player = new Player(192, 32, "player.gif", map);
 
-		// ƒL[ƒCƒxƒ“ƒgƒŠƒXƒi[‚ğ“o˜^
+		// ã‚­ãƒ¼ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ã‚’ç™»éŒ²
 		addKeyListener(this);
 
-		// ƒQ[ƒ€ƒ‹[ƒvŠJn
+		// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—é–‹å§‹
 		gameLoop = new Thread(this);
 		gameLoop.start();
 	}
 
 	/**
-	 * ƒQ[ƒ€ƒ‹[ƒv
+	 * ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
 	 */
 	@Override
 	public void run(){
@@ -65,30 +71,30 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 			if(upPressed){
 				player.Jump();
 			}
-			// ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğXV
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã‚’æ›´æ–°
 			player.Update();
 
-			// ƒ}ƒbƒv‚É‚¢‚éƒXƒvƒ‰ƒCƒg‚ğæ“¾
+			// ãƒãƒƒãƒ—ã«ã„ã‚‹ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’å–å¾—
 			LinkedList sprites = map.GetSprites();            
 			Iterator iterator = sprites.iterator();
 			while (iterator.hasNext()) {
 				Sprite sprite = (Sprite)iterator.next();
 
-				// ƒXƒvƒ‰ƒCƒg‚Ìó‘Ô‚ğXV‚·‚é
+				// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹
 				sprite.Update();
 
-				// ƒvƒŒƒCƒ„[‚ÆÚG‚µ‚Ä‚½‚ç
+				// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨æ¥è§¦ã—ã¦ãŸã‚‰
 				if (player.Contact(sprite)) {
 					/*
-                // ‚»‚ê‚ªƒRƒCƒ“‚¾‚Á‚½‚ç
+                // ãã‚ŒãŒã‚³ã‚¤ãƒ³ã ã£ãŸã‚‰
                 if (sprite instanceof Coin) {
                     Coin coin = (Coin)sprite;
-                    // ƒRƒCƒ“‚ÍÁ‚¦‚é
+                    // ã‚³ã‚¤ãƒ³ã¯æ¶ˆãˆã‚‹
                     sprites.remove(coin);
-                    // ‚¿‚á‚è`‚ñ
+                    // ã¡ã‚ƒã‚Šã€œã‚“
                     coin.play();
-                    // sprites‚©‚çíœ‚µ‚½‚Ì‚Å
-                    // break‚µ‚È‚¢‚Æiterator‚ª‚¨‚©‚µ‚­‚È‚é
+                    // spritesã‹ã‚‰å‰Šé™¤ã—ãŸã®ã§
+                    // breakã—ãªã„ã¨iteratorãŒãŠã‹ã—ããªã‚‹
                     break;
                 }
 					 */
@@ -97,10 +103,10 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 			
 			map.Lotation();
 			
-			// Ä•`‰æ
+			// å†æç”»
 			repaint();
 
-			// ‹x~
+			// ä¼‘æ­¢
 			try {
 				Thread.sleep(20);
 			} catch (InterruptedException e) {
@@ -111,34 +117,38 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	}
 
 	/**
-	 * •`‰æˆ—
+	 * æç”»å‡¦ç†
 	 */
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		//”wŒi‚ğF‚Å“h‚è‚Â‚Ô‚·
+		//èƒŒæ™¯ã‚’è‰²ã§å¡—ã‚Šã¤ã¶ã™
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
-		// X•ûŒü‚ÌƒIƒtƒZƒbƒg‚ğŒvZ
+		// Xæ–¹å‘ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—
         int relativeX = MainPanel.WIDTH / 2 - (int)player.GetX();
-        // ƒ}ƒbƒv‚Ì’[‚Å‚ÍƒXƒNƒ[ƒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+        // ãƒãƒƒãƒ—ã®ç«¯ã§ã¯ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãªã„ã‚ˆã†ã«ã™ã‚‹
         relativeX = Math.min(relativeX, 0);
         relativeX = Math.max(relativeX, MainPanel.WIDTH - map.GetWidth());
 
-        // Y•ûŒü‚ÌƒIƒtƒZƒbƒg‚ğŒvZ
+        // Yæ–¹å‘ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—
         int relativeY = MainPanel.HEIGHT / 2 - (int)player.GetY();
-        // ƒ}ƒbƒv‚Ì’[‚Å‚ÍƒXƒNƒ[ƒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+        // ãƒãƒƒãƒ—ã®ç«¯ã§ã¯ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãªã„ã‚ˆã†ã«ã™ã‚‹
         relativeY = Math.min(relativeY, 0);
         relativeY = Math.max(relativeY, MainPanel.HEIGHT - map.GetHeight());
 
-        // ƒ}ƒbƒv‚ğ•`‰æ
+        // ãƒãƒƒãƒ—ã‚’æç”»
         map.Draw(g, relativeX, relativeY);
+        
+        //ã€€ã‚¹ã‚³ã‚¢ã‚’æç”»
+        score.Draw(g);
+        
 
-        // ƒvƒŒƒCƒ„[‚ğ•`‰æ
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æç”»
         player.Draw(g, relativeX, relativeY);
         
-        // ƒXƒvƒ‰ƒCƒg‚ğ•`‰æ
+        // ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»
         LinkedList sprites = map.GetSprites();            
         Iterator iterator = sprites.iterator();
         while (iterator.hasNext()) {
