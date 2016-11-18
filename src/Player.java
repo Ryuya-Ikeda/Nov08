@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 import javax.swing.JOptionPane;
 
@@ -136,7 +137,19 @@ public class Player extends Sprite{
                 null);
     }
 
+    /**
+     * ƒXƒRƒA‚ð‰ÁŽZ
+     * @param score
+     */
 	public void Add_Score(int score){
 		this.score += score;
+	}
+	
+	public boolean next_Contact(Sprite sprite){
+		Rectangle player = new Rectangle((int)x + map.TILE_SIZE, (int)y, width, height);
+		Rectangle spriteRect = new Rectangle((int)sprite.GetX(), (int)sprite.GetY(), sprite.GetWidth(), sprite.GetHeight());
+		if(player.intersects(spriteRect)){
+			return true;
+		} else { return false; }
 	}
 }

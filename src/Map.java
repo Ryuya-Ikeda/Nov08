@@ -250,6 +250,7 @@ public class Map {
 			next_map[i][COL-1] = str.charAt(0);
 		}
 
+		//スプライトの座標の移動と削除
 		Iterator iterator = sprites.iterator();
 		while (iterator.hasNext()) {
 			Sprite sprite = (Sprite)iterator.next();
@@ -276,6 +277,14 @@ public class Map {
 	public void Sprite_delete(int x, int y){
 		System.out.printf("x:%d y:%d \n", x,y);
 		map[y][x] = ' ';
+		
+		for(int i=0;i<ROW;i++){
+			for(int j=0;j<COL;j++){
+				System.out.printf("%c",map[i][j]);
+			}
+			System.out.println("");
+		}
+		
 	}
 
 	/**

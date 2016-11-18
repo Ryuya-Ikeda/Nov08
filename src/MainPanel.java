@@ -104,9 +104,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 						// spritesから削除したので
 						// breakしないとiteratorがおかしくなる
 						break;
-					}
-
-				}
+					} 
+				} 
 			}
 
 			map.Lotation();
@@ -189,10 +188,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	public void keyTyped(KeyEvent arg0) {
 	}
 
-
-	public void Sprite_delete(LinkedList sprites,Sprite sprite){
-		sprites.remove(sprite);
-	}
 
 	/**
 	 * ゲームオーバーの処理
