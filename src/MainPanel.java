@@ -25,13 +25,13 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 640;
 
-
-
+	//スコア
+	private Score score;
+	
 	// マップ
 	private Map map;
 	
-	// 繧ケ繧ウ繧「
-	private Score score;
+	// 郢ァ繧ア郢ァ繧ヲ郢ァ縲	private Score score;
 
 	// 繝励Ξ繧、繝、繝シ
 	private Player player;
@@ -116,9 +116,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 						// spritesから削除したので
 						// breakしないとiteratorがおかしくなる
 						break;
-					}
-
-				}
+					} 
+				} 
 			}
 
 			map.Lotation();
@@ -146,6 +145,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	/**
 	 * 謠冗判蜃ヲ逅	 */
 	public void paintComponent(Graphics g){
+		int i=0;
 		super.paintComponent(g);
 
 
@@ -178,10 +178,13 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 		LinkedList sprites = map.GetSprites();            
 		Iterator iterator = sprites.iterator();
 		while (iterator.hasNext()) {
+			i++;
 			Sprite sprite = (Sprite)iterator.next();
 			sprite.Draw(g, relativeX, relativeY);
 		}
-		
+
+		System.out.printf("%d\n",i);
+		i=0;
 	}
 
 	@Override
@@ -204,10 +207,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	public void keyTyped(KeyEvent arg0) {
 	}
 
-
-	public void Sprite_delete(LinkedList sprites,Sprite sprite){
-		sprites.remove(sprite);
-	}
 
 	/**
 	 * ゲームオーバーの処理

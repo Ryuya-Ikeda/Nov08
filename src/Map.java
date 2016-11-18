@@ -62,13 +62,14 @@ public class Map {
 		
 		//マップのロード
 		Load(fileName);
-		//謗ァ縺医繝槭ャ繝励繝ュ繝シ繝		//Reflection(next_map, "map" + (rnd.nextInt(MAP_NUM) + 1) + ".dat");
-		Reflection(next_map, "map01.dat");
+
+		//控えのマップのロード
+		//Reflection(next_map, "map" + (rnd.nextInt(MAP_NUM) + 1) + ".dat");
+		Reflection(next_map, fileName);
 		width = TILE_SIZE * COL;
 		height = TILE_SIZE * ROW;
 
-		//画像のロード
-		LoadImage();
+		//逕サ蜒上繝ュ繝シ繝		LoadImage();
 
 	}
 
@@ -174,11 +175,27 @@ public class Map {
 	private void Load(String fileName){
 		map = new char[ROW][COL];
 		next_map = new char[ROW][COL];
-		Reflection(map, fileName);
+		String line;//ファイル読み込み用
+		try{
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					getClass().getResourceAsStream("map/" + fileName)));
+			//マップを作成
+
+			for(int i = 0; i < ROW; i++){
+				line = br.readLine(); //1行読み取り
+				for(int j = 0; j < COL; j++){
+					map[i][j] = line.charAt(j);
+					if(map[i][j] != ' ')
+						Sprite_load(i, j, map);
+				}
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * マップにマップファイルを反映させる。
+	 * 繝槭ャ繝励↓繝槭ャ繝励ヵ繧。繧、繝ォ繧貞渚譏せる。
 	 * @param map
 	 * @param fileName
 	 */
@@ -194,8 +211,6 @@ public class Map {
 				for(int j = 0; j < COL; j++){
 					map[i][j] = line.charAt(j);
 
-					if(map[i][j] != ' ')
-					Sprite_load(i, j, map);
 				}
 			}
 		} catch (Exception e){
@@ -255,6 +270,7 @@ public class Map {
 			next_map[i][COL-1] = str.charAt(0);
 		}
 
+		//スプライトの座標の移動と削除
 		Iterator iterator = sprites.iterator();
 		while (iterator.hasNext()) {
 			Sprite sprite = (Sprite)iterator.next();
@@ -274,17 +290,25 @@ public class Map {
 	}
 
 	/**
-	 * マップ中の引数の位置のスプライトを削除
+	 * 繝槭ャ繝嶺クュ縺ョ蠑墓焚縺ョ菴咲スョ縺ョ繧ケ繝励Λ繧、繝医ｒ蜑企勁
 	 * @param x
 	 * @param y
 	 */
 	public void Sprite_delete(int x, int y){
 		System.out.printf("x:%d y:%d \n", x,y);
 		map[y][x] = ' ';
+		
+		for(int i=0;i<ROW;i++){
+			for(int j=0;j<COL;j++){
+				System.out.printf("%c",map[i][j]);
+			}
+			System.out.println("");
+		}
+		
 	}
 
 	/**
-	 * 指定した位置の配列からスプライトを読み込ませる
+	 * 謖㍾ョ壹＠縺滉ス咲スョ縺ョ驟榊縺九ｉ繧ケ繝励Λ繧、繝医ｒ隱ュ縺ソ霎シ縺セ縺帙ｋ
 	 * @param i
 	 * @param j
 	 * @param map
@@ -294,7 +318,9 @@ public class Map {
 		case 'o':
 			sprites.add(new Coin((double)TilesToPixels(j), (double)TilesToPixels(i), "coin.gif", this, mainPanel));
 			break;
-			//この先描画するブロックの種類が増えるなら追加
-		}
+			//縺薙蜈域緒逕サ縺吶ｋ繝悶Ο繝け縺ョ遞ョ鬘槭′蠅励∴繧九↑繧芽ソス蜉		}
+	}
 	}
 }
+
+		
