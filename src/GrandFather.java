@@ -27,8 +27,7 @@ public class GrandFather extends Sprite{
 
 	@Override
 	public void Update() {
-		int i = rnd.nextInt(10);
-		if(i % 2 == 0){
+		if(rnd.nextInt(2) % 2 == 0){
 			vx = Map.TILE_SIZE / 32;
 		} 
 		else {

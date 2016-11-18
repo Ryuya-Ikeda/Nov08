@@ -143,6 +143,27 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 							GameOver();
 						}
 					}
+					else if(sprite instanceof Animal){
+						Animal animal = (Animal)sprite;
+						
+						//ジャンプで踏んだら
+						if(player.GetY() < animal.GetY()){
+							//スライムは消える
+							sprites.remove(animal);
+							map.Sprite_delete(Map.PixelsToTiles(animal.x),Map.PixelsToTiles(animal.y));
+							//スライムを踏み台にプレイヤーはジャンプする
+							player.Tread();
+							
+							//スライムを踏んだ音
+							animal.play();
+							player.Add_Score(animal.score);
+							break;
+						}
+						//普通にぶつかったら
+						else{
+							GameOver();
+						}
+					}
 				} 
 			}
 
@@ -173,9 +194,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	 */
 
 	public void paintComponent(Graphics g){
-		int i=0;
 		super.paintComponent(g);
-
 
 		//背景を色で塗りつぶす
 		g.setColor(Color.black);
@@ -206,13 +225,9 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 		LinkedList sprites = map.GetSprites();            
 		Iterator iterator = sprites.iterator();
 		while (iterator.hasNext()) {
-			i++;
 			Sprite sprite = (Sprite)iterator.next();
 			sprite.Draw(g, relativeX, relativeY);
 		}
-
-		System.out.printf("%d\n",i);
-		i=0;
 	}
 
 	@Override

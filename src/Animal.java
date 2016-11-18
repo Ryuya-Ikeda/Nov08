@@ -5,34 +5,48 @@ import java.awt.Point;
 import java.util.Random;
 
 /**
- * 敵キャラ:スライム
+ * 敵キャラ：動物(わんにゃん)
  * @author riked
  *
  */
-public class Slime extends Sprite{
-	
+public class Animal extends Sprite{
 	private Random rnd;
 	private AudioClip sound;
-
+	//ジャンプ力
+	private int jump_speed = 10;
+	//地面に足がついているか判定
+	private boolean onGround;
+	
 	private double vx,vy;
-
-	public Slime(double x, double y, String fileName, Map map, MainPanel mainpanel) {
+	
+	
+	public Animal(double x, double y, String fileName, Map map, MainPanel mainpanel) {
 		super(x,y,fileName,map,mainpanel);
-		score = 100;
+		score = 200;
 		rnd = new Random();
 
 		//ぶつかったときの効果音
-		sound = Applet.newAudioClip(getClass().getResource("music/tread.wav"));
+		if(fileName.equals("animal/animal0.png")){
+			sound = Applet.newAudioClip(getClass().getResource("music/dog.wav"));
+		}
+		else if(fileName.equals("animal/animal1.png")){
+			sound = Applet.newAudioClip(getClass().getResource("music/cat.wav"));
+		}
+		//他の動物を増やした時への配慮
+		else{
+			sound = Applet.newAudioClip(getClass().getResource("music/tread.wav"));
+		}
+		
 
 	}
 
 	@Override
 	public void Update() {
 		if(rnd.nextInt(2) % 2 == 0){
-			vx = Map.TILE_SIZE / 32;
+			vx = Map.TILE_SIZE / 16;
 		} 
 		else{
-			vx = 0;
+			vx = -1 * Map.TILE_SIZE / 16;
 		}
 		//重力で下向きに加速度がかかる
 		vy += Map.GRAVITY;
@@ -54,20 +68,38 @@ public class Slime extends Sprite{
 		//衝突するタイルがないので
 		if(tile == null){
 			y = newY;//移動
+			onGround = false; //空中にいると分かるので
 		} else {
 			//衝突するタイルがあるので
 			if(vy > 0){ //下へ移動中
 				//位置調整
 				y = Map.TilesToPixels(tile.y) - height;
 				vy = 0; //着地したのでy方向速度を0へ
+				onGround = true; //着地フラグを立てる
 			} else if(vy < 0){ //天井へぶつかったので
 				//上へ移動中
 				y = Map.TilesToPixels(tile.y + 1);
 				vy = 0;
 			}
 		}
+		
+		//ランダムでジャンプする(仮に10パーセント)
+		if(rnd.nextInt(10) == 0 && onGround){
+			Jump();
+		}
 	}
-
+	
+	/**
+	 * ジャンプする
+	 */
+	public void Jump(){
+		if(onGround){
+			//上向きに速度を追加(javaでは天井が0だから)
+			vy = -jump_speed;
+			onGround = false;
+		}
+	}
+	
 	/**
 	 * 描画
 	 * @param g

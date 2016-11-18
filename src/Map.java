@@ -292,16 +292,7 @@ public class Map {
 	 * @param y
 	 */
 	public void Sprite_delete(int x, int y){
-		System.out.printf("x:%d y:%d \n", x,y);
 		map[y][x] = ' ';
-
-		for(int i=0;i<ROW;i++){
-			for(int j=0;j<COL;j++){
-				System.out.printf("%c",map[i][j]);
-			}
-			System.out.println("");
-		}
-
 	}
 
 	/**
@@ -319,7 +310,13 @@ public class Map {
 			sprites.add(new GrandFather((double)TilesToPixels(j), (double)TilesToPixels(i), "grandfather.png", this, mainPanel));
 			break;
 		case 's':
-			sprites.add(new Slime((double)TilesToPixels(j), (double)TilesToPixels(i), "slime/Slime" + rnd.nextInt(4) + ".png", this, mainPanel));
+			sprites.add(new Slime((double)TilesToPixels(j), (double)TilesToPixels(i), "slime/slime" + rnd.nextInt(4) + ".png", this, mainPanel));
+			break;
+		case 'd':
+			sprites.add(new Animal((double)TilesToPixels(j), (double)TilesToPixels(i), "animal/animal0.png", this, mainPanel));
+			break;
+		case 'c':
+			sprites.add(new Animal((double)TilesToPixels(j), (double)TilesToPixels(i), "animal/animal1.png", this, mainPanel));
 		}
 	}
 }
