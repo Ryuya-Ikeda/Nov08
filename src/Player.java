@@ -1,6 +1,8 @@
 import java.awt.Graphics;
 import java.awt.Point;
 
+import javax.swing.JOptionPane;
+
 /**
  * ゲームの主人公の設定
  * マ〇オ,ワ〇オ
@@ -11,33 +13,39 @@ import java.awt.Point;
 public class Player extends Sprite{
 	//スピード
 	private int speed = 6;
+
 	//ジャンプ力
+
 	private int jump_speed = 20;
 
-	//速度
+	//騾溷コヲ
 	//protected int vx;
 	protected double vy;
+	
 
-	//地面に足がついているか判定
+	//蝨ー髱「縺ォ雜ウ縺後▽縺※縺ｋ縺句愛螳嚥	
 	private boolean onGround;
 
-	public Player(double x, double y, String fileName, Map map){
-		super(x,y,fileName,map);
-
+	//元のx座標の位置を保持
+	private static double initial_px;
+	
+	public Player(double x, double y, String fileName, Map map, MainPanel mainPanel){
+		super(x,y,fileName,map,mainPanel);
+		initial_px = x;
 		//vx = 0;
 		vy = 0;
 		onGround = false;
 	}
 
 	/**
-	 * 停止
+	 * 蛛懈ュ「
 	 */
 	public void Stop(){
 		//vx = 0;
 	}
 
 	/**
-	 * 加速
+	 * 蜉
 	 */
 	public void Accelerate(){
 		//vx = speed;
@@ -55,30 +63,47 @@ public class Player extends Sprite{
 	}
 
 	/**
+<<<<<<< HEAD
 	 * 状態を更新
+=======
+	 * 
+>>>>>>> 27728db1c9e46f95018787dc2a2f122b18ec97d0
 	 */
+	@Override
 	public void Update(){
 		//重力で下向きに加速度がかかる
 		vy += Map.GRAVITY;
 		Point tile;
 
-		//x方向の当たり判定
-		//double newX = x + vx;//移動先座標を決定
+		
 		/*
-		 * 移動先座標で衝突するタイルの位置を取得
-		 * x方向だけ考える
+		 * ゲームオーバー判定
+		 */
+		if(x<0 || y > MainPanel.HEIGHT || y < 0){
+			mainPanel.GameOver();
+			return;
+		}
+		
+		//x方向の当たり判定
+		//double newX = x /*+ vx*/;//移動先座標を決定
+		/*
+		 * 遘サ蜍募蠎ァ讓吶〒陦晉ェ√☆繧九ち繧、繝ォ縺ョ菴咲スョ繧貞叙蠕		 * x方向だけ考える
 		 */
 		//tile = map.GetTileCllision(this, newX, y);
-		//衝突するタイルがないので
-		//if(tile == null){
-		//	x = newX;//移動
-		//} else {
-		//	//衝突するタイルがあるのでブロックにめり込まないように位置調整
-		//	x = Map.TilesToPixels(tile.x) - width;
-		//	vx = 0; //速度を0へ
-		//}
 
-		//y方向の当たり判定
+		tile = map.GetTileCllision(this, x, y);
+		//衝突するタイルがないので
+		if(tile == null){
+			if(x < initial_px){
+				x += 2; //x方向に進める
+			}
+		} else {
+			//衝突するタイルがあるのでブロックにめり込まないように位置調整
+			x = Map.TilesToPixels(tile.x) - width;
+			//vx = 0; //速度を0へ
+		}
+
+		//y譁ケ蜷代蠖薙◆繧雁愛螳		
 		double newY = y + vy;
 		/*
 		 * 移動先座標で衝突するタイルの位置を取得
@@ -102,6 +127,7 @@ public class Player extends Sprite{
 				vy = 0;
 			}
 		}
+		
 	}
 
 	/**
@@ -117,4 +143,8 @@ public class Player extends Sprite{
                 count * width + width, height,
                 null);
     }
+
+	public void Add_Score(int score){
+		this.score += score;
+	}
 }

@@ -20,22 +20,29 @@ public class Score{
 	
 	private int x;
 	private int y;
+	private Player player;
 	
 
 	
-	public Score(){	
+	public Score(Player p){	
+		player = p;
 		x = 20;
 		y = 2;
 	}
 	
 	public void Draw(Graphics g){
 		  Graphics2D g2 = (Graphics2D)g;
-		  Font Matrs = createFont("font/ka1.ttf");
-		  Matrs = Matrs.deriveFont(12.0f);
 		  
+		  //任意のフォントファイルを指定(.otfは不可)
+		  Font Matrs = createFont("font/ka1.ttf");
+		  Matrs = Matrs.deriveFont(17.0f);
+		  
+		  //フォントカラー
 		  g2.setColor(Color.RED);
+		  
+		  
 		  g2.setFont(Matrs);
-		  g2.drawString("SCORE:00000", Map.TilesToPixels(x),Map.TilesToPixels(y));
+		  g2.drawString("SCORE " + Integer.toString(player.Get_Score()), Map.TilesToPixels(x),Map.TilesToPixels(y));
 	}
 
 	

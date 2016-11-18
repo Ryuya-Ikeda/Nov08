@@ -31,11 +31,18 @@ public abstract class Sprite {
 
 	//マップへの参照
 	protected Map map;
+	
+	//MainPanelへの参照
+	protected MainPanel mainPanel;
+	
+	//スコア
+	protected int score = 0;
 
-	public Sprite(double x, double y, String fileName, Map map){
+	public Sprite(double x, double y, String fileName, Map map, MainPanel mainPanel){
 		this.x = x;
 		this.y = y;
 		this.map = map;
+		this.mainPanel = mainPanel;
 
 		width = 32;
 		height = 32;
@@ -65,12 +72,12 @@ public abstract class Sprite {
     }
 
 	/**
-	 * 物体の状態を更新
+	 * 迚ゥ菴薙迥カ諷九ｒ譖エ譁ー
 	 */
 	public abstract void Update();
 
 	/**
-	 * 描画
+	 * 謠冗判
 	 * @param g
 	 * @param relative_x
 	 * @param relative_y
@@ -88,13 +95,12 @@ public abstract class Sprite {
 	}
 
 	/**
-	 * 他の物体とぶつかっているか
-	 * @param sprite
+	 * 莉悶迚ゥ菴薙→縺カ縺、縺九▲縺ヲ縺ｋ縺	 * @param sprite
 	 * @return
 	 */
 	public boolean Contact(Sprite sprite){
 		Rectangle player = new Rectangle((int)x, (int)y, width, height);
-		Rectangle spriteRect = new Rectangle((int)sprite.GetX(), (int)sprite.GetY(), sprite.GetWidth(), sprite.GetHeight());
+		Rectangle spriteRect = new Rectangle((int)sprite.GetX() - Map.TilesToPixels(1), (int)sprite.GetY() - Map.TilesToPixels(1), sprite.GetWidth(), sprite.GetHeight());
 		if(player.intersects(spriteRect)){
 			return true;
 		} else { return false; }
@@ -129,5 +135,9 @@ public abstract class Sprite {
 			}
 
 		}
+	}
+	
+	public int Get_Score(){
+		return score;
 	}
 }
