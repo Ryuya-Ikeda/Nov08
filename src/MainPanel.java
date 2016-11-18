@@ -31,8 +31,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 	// マップ
 	private Map map;
-	
-	// 郢ァ繧ア郢ァ繧ヲ郢ァ縲	private Score score;
 
 	// プレイヤー
 	private Player player;
@@ -80,11 +78,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	}
 
 	/**
-<<<<<<< HEAD
 	 * ゲームループ
-=======
-	 * 繧イ繝シ繝ープ
->>>>>>> 70f28d5e1b6246ee955eac76b4c9a9bd18a9fc39
 	 */
 	@Override
 	public void run(){
