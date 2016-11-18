@@ -69,7 +69,8 @@ public class Map {
 		width = TILE_SIZE * COL;
 		height = TILE_SIZE * ROW;
 
-		//逕サ蜒上繝ュ繝シ繝		LoadImage();
+		//逕サ蜒上繝ュ繝シ繝		
+		LoadImage();
 
 	}
 

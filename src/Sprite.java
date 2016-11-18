@@ -100,7 +100,7 @@ public abstract class Sprite {
 	 */
 	public boolean Contact(Sprite sprite){
 		Rectangle player = new Rectangle((int)x, (int)y, width, height);
-		Rectangle spriteRect = new Rectangle((int)sprite.GetX() - Map.TilesToPixels(1), (int)sprite.GetY() - Map.TilesToPixels(1), sprite.GetWidth(), sprite.GetHeight());
+		Rectangle spriteRect = new Rectangle((int)sprite.GetX(), (int)sprite.GetY(), sprite.GetWidth(), sprite.GetHeight());
 		if(player.intersects(spriteRect)){
 			return true;
 		} else { return false; }
