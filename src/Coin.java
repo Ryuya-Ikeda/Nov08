@@ -1,17 +1,17 @@
-import java.applet.Applet;
+ï»¿import java.applet.Applet;
 import java.applet.AudioClip;
 
 public class Coin extends Sprite{
-	//ƒRƒCƒ“‚ğæ‚Á‚½‚Æ‚«‚Ì‰¹
+	//ã‚³ã‚¤ãƒ³ã‚’å–ã£ãŸã¨ãã®éŸ³
 	private AudioClip sound;
 	
 	public Coin(double x, double y, String fileName, Map map, MainPanel mainpanel){
 		super(x,y,fileName,map,mainpanel);
 		
-		//ƒTƒEƒ“ƒh‚Ìƒ[ƒh
+		//ã‚µã‚¦ãƒ³ãƒ‰ã®ãƒ­ãƒ¼ãƒ‰
 		sound = Applet.newAudioClip(getClass().getResource("music/coin.wav"));
 		
-		//ƒXƒRƒA‚ÌŒˆ’è(‰¼‚É)
+		//ã‚¹ã‚³ã‚¢ã®æ±ºå®š(ä»®ã«)
 		score = 1000;
 	}
 
@@ -22,7 +22,7 @@ public class Coin extends Sprite{
 	}
 	
 	/**
-	 * ƒTƒEƒ“ƒh‚ÌÄ¶
+	 * ã‚µã‚¦ãƒ³ãƒ‰ã®å†ç”Ÿ
 	 */
 	public void play(){
 		sound.play();
