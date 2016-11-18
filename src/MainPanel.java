@@ -25,7 +25,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 640;
 
-
 	// ƒ}ƒbƒv
 	private Map map;
 
@@ -133,6 +132,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	 * •`‰æˆ—
 	 */
 	public void paintComponent(Graphics g){
+		int i=0;
 		super.paintComponent(g);
 
 		//”wŒi‚ğF‚Å“h‚è‚Â‚Ô‚·
@@ -161,11 +161,12 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 		LinkedList sprites = map.GetSprites();            
 		Iterator iterator = sprites.iterator();
 		while (iterator.hasNext()) {
+			i++;
 			Sprite sprite = (Sprite)iterator.next();
 			sprite.Draw(g, relativeX, relativeY);
 		}
-		
-
+		System.out.printf("%d\n",i);
+		i=0;
 	}
 
 	@Override

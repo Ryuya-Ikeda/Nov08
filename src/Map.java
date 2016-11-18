@@ -60,7 +60,7 @@ public class Map {
 		Load(fileName);
 		//控えのマップのロード
 		//Reflection(next_map, "map" + (rnd.nextInt(MAP_NUM) + 1) + ".dat");
-		Reflection(next_map, "map01.dat");
+		Reflection(next_map, fileName);
 		width = TILE_SIZE * COL;
 		height = TILE_SIZE * ROW;
 
@@ -171,7 +171,23 @@ public class Map {
 	private void Load(String fileName){
 		map = new char[ROW][COL];
 		next_map = new char[ROW][COL];
-		Reflection(map, fileName);
+		String line;//ファイル読み込み用
+		try{
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					getClass().getResourceAsStream("map/" + fileName)));
+			//マップを作成
+
+			for(int i = 0; i < ROW; i++){
+				line = br.readLine(); //1行読み取り
+				for(int j = 0; j < COL; j++){
+					map[i][j] = line.charAt(j);
+					if(map[i][j] != ' ')
+						Sprite_load(i, j, map);
+				}
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -190,8 +206,6 @@ public class Map {
 				line = br.readLine(); //1行読み取り
 				for(int j = 0; j < COL; j++){
 					map[i][j] = line.charAt(j);
-					if(map[i][j] != ' ')
-					Sprite_load(i, j, map);
 				}
 			}
 		} catch (Exception e){
