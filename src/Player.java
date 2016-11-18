@@ -37,14 +37,14 @@ public class Player extends Sprite{
 	}
 
 	/**
-	 * 蛛懈ュ「
+	 * 止まる
 	 */
 	public void Stop(){
 		//vx = 0;
 	}
 
 	/**
-	 * 蜉
+	 * 加速
 	 */
 	public void Accelerate(){
 		//vx = speed;
@@ -125,20 +125,6 @@ public class Player extends Sprite{
 	}
 
 	/**
-	 * プレイヤーを描画（オーバーライド）
-	 */
-	public void Draw(Graphics g, int relativeX, int relativeY) {
-		g.drawImage(image,
-				(int)x + relativeX,
-				(int)y + relativeY,
-				(int)x + relativeX + width,
-				(int)y + relativeY + height,
-				count * width, 0,
-				count * width + width, height,
-				null);
-	}
-
-	/**
 	 * スコアを加算
 	 * @param score
 	 */
@@ -146,11 +132,11 @@ public class Player extends Sprite{
 		this.score += score;
 	}
 
-	public boolean next_Contact(Sprite sprite){
-		Rectangle player = new Rectangle((int)x + map.TILE_SIZE, (int)y, width, height);
-		Rectangle spriteRect = new Rectangle((int)sprite.GetX(), (int)sprite.GetY(), sprite.GetWidth(), sprite.GetHeight());
-		if(player.intersects(spriteRect)){
-			return true;
-		} else { return false; }
+	/**
+	 * 敵を踏んだ時
+	 */
+	public void Tread(){
+		onGround = true;
+		Jump();
 	}
 }

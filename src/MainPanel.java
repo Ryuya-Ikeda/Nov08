@@ -122,6 +122,27 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 						player.Add_Score(gf.score);
 						break;
 					}
+					else if(sprite instanceof Slime){
+						Slime slime = (Slime)sprite;
+						
+						//ジャンプで踏んだら
+						if(player.GetY() < slime.GetY()){
+							//スライムは消える
+							sprites.remove(slime);
+							map.Sprite_delete(Map.PixelsToTiles(slime.x),Map.PixelsToTiles(slime.y));
+							//スライムを踏み台にプレイヤーはジャンプする
+							player.Tread();
+							
+							//スライムを踏んだ音
+							slime.play();
+							player.Add_Score(slime.score);
+							break;
+						}
+						//普通にぶつかったら
+						else{
+							GameOver();
+						}
+					}
 				} 
 			}
 

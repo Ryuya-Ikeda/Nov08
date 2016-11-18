@@ -1,60 +1,62 @@
 import java.applet.Applet;
 import java.applet.AudioClip;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Random;
 
 /**
- * 敵キャラ：じいさん
+ * 敵キャラ:スライム
  * @author riked
  *
  */
-public class GrandFather extends Sprite{
-
+public class Slime extends Sprite{
+	
 	private Random rnd;
 	private AudioClip sound;
 
 	private double vx,vy;
 
-	public GrandFather(double x, double y, String fileName, Map map, MainPanel mainpanel) {
+	public Slime(double x, double y, String fileName, Map map, MainPanel mainpanel) {
 		super(x,y,fileName,map,mainpanel);
-		score = 50;
+		score = 100;
 		rnd = new Random();
 
 		//ぶつかったときの効果音
-		sound = Applet.newAudioClip(getClass().getResource("music/break.wav"));;
+		sound = Applet.newAudioClip(getClass().getResource("music/tread.wav"));
 
 	}
 
 	@Override
 	public void Update() {
-		int i = rnd.nextInt(10);
+		int i = rnd.nextInt(2);
 		if(i % 2 == 0){
 			vx = Map.TILE_SIZE / 32;
 		} 
-		else {
-			vx = -1 * Map.TILE_SIZE / 32;
+		else{
+			vx = 0;
 		}
-
 		//重力で下向きに加速度がかかる
 		vy += Map.GRAVITY;
 		Point tile;
+
+		/*
+		 * ゲームオーバー判定
+		 */
+		if(x<0 || y > MainPanel.HEIGHT || y < 0){
+			mainPanel.GameOver();
+			return;
+		}
 
 		tile = map.GetTileCllision(this, x+vx, y);
 		//衝突するタイルがないので
 		if(tile == null){
 			x += vx; 
-			if(vx > 0){
-				dir = LEFT;
-			}
-			else{
-				dir = RIGHT;
-			}
 		} else {
 			//衝突するタイルがあるのでブロックにめり込まないように位置調整
 			x = Map.TilesToPixels(tile.x) - width;
 		}
 
-		//y方向のあたり判定	
+		//y方向のあたり判定
 		double newY = y + vy;
 		//移動先座標で衝突するタイルの位置を取得
 		tile = map.GetTileCllision(this, x, newY);
@@ -73,6 +75,25 @@ public class GrandFather extends Sprite{
 				vy = 0;
 			}
 		}
+	}
+
+	/**
+	 * 描画
+	 * @param g
+	 * @param relative_x
+	 * @param relative_y
+	 */
+	@Override
+	public void Draw(Graphics g, int relative_x, int relative_y){
+		g.drawImage(image,
+				(int)x + relative_x,
+				(int)y + relative_y,
+				(int)x + relative_x + width,
+				(int)y + relative_y + height,
+				count * width, dir * height,
+				count * width + width,
+				height + dir * height,
+				null);
 	}
 	
 	/**

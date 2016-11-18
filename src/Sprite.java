@@ -14,6 +14,11 @@ import javax.swing.ImageIcon;
  */
 public abstract class Sprite {
 
+	//向き
+    protected static final int RIGHT = 0;
+    protected static final int LEFT = 1;
+    protected int dir = 0;
+	
 	//位置
 	protected double x;
 	protected double y;
@@ -88,9 +93,9 @@ public abstract class Sprite {
 				(int)y + relative_y,
 				(int)x + relative_x + width,
 				(int)y + relative_y + height,
-				count * width, 0,
+				count * width, dir * height,
 				count * width + width,
-				height,
+				height + dir * height,
 				null);
 	}
 

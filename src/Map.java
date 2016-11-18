@@ -50,12 +50,10 @@ public class Map {
 	private int update_map_num = 0;
 
 	//マップの数
-
 	private static final int MAP_NUM = 1;
-
+	
 	private MainPanel mainPanel;
 
-	//繝槭ャ繝励繝ュ繝シ繝焔=======
 	public Map(String fileName, MainPanel mainPanel){
 		sprites = new LinkedList();
 		this.mainPanel = mainPanel;
@@ -69,7 +67,7 @@ public class Map {
 		width = TILE_SIZE * COL;
 		height = TILE_SIZE * ROW;
 
-		//逕サ蜒上繝ュ繝シ繝		
+		//画像の読み込み
 		LoadImage();
 
 	}
@@ -275,9 +273,7 @@ public class Map {
 		Iterator iterator = sprites.iterator();
 		while (iterator.hasNext()) {
 			Sprite sprite = (Sprite)iterator.next();
-			if (sprite instanceof Coin) {
-				sprite.x -= TILE_SIZE;
-			}
+			sprite.x -= TILE_SIZE;
 			if(sprite.x < 0){
 				iterator.remove();
 			}
@@ -322,6 +318,8 @@ public class Map {
 		case 'j':
 			sprites.add(new GrandFather((double)TilesToPixels(j), (double)TilesToPixels(i), "grandfather.png", this, mainPanel));
 			break;
+		case 's':
+			sprites.add(new Slime((double)TilesToPixels(j), (double)TilesToPixels(i), "slime/Slime" + rnd.nextInt(4) + ".png", this, mainPanel));
 		}
 	}
 }

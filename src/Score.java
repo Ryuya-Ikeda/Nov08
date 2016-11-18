@@ -20,8 +20,6 @@ public class Score{
 	private int y;
 	private Player player;
 	
-
-	
 	public Score(Player p){	
 		player = p;
 		x = 20;

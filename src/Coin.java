@@ -1,6 +1,11 @@
 ﻿import java.applet.Applet;
 import java.applet.AudioClip;
 
+/**
+ * コインの設定
+ * @author riked
+ *
+ */
 public class Coin extends Sprite{
 	//コインを取ったときの音
 	private AudioClip sound;
