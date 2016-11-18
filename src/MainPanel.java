@@ -22,7 +22,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 640;
-
+	
 	//スコア
 	private Score score;
 
@@ -113,6 +113,12 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 					else if(sprite instanceof GrandFather){
 						GrandFather gf = (GrandFather)sprite;
 						
+						//ジャンプで踏んだら
+						if(player.GetY() < gf.GetY()){
+							//おじいちゃんを踏み台にプレイヤーはジャンプする
+							player.Tread();
+						}
+						
 						// 爺さんは亡くなる
 						sprites.remove(gf);
 						map.Sprite_delete(Map.PixelsToTiles(gf.x),Map.PixelsToTiles(gf.y));
@@ -136,33 +142,33 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 							//スライムを踏んだ音
 							slime.play();
 							player.Add_Score(slime.score);
-							break;
 						}
 						//普通にぶつかったら
 						else{
 							GameOver();
 						}
+						break;
 					}
 					else if(sprite instanceof Animal){
 						Animal animal = (Animal)sprite;
 						
 						//ジャンプで踏んだら
 						if(player.GetY() < animal.GetY()){
-							//スライムは消える
+							//動物は消える
 							sprites.remove(animal);
 							map.Sprite_delete(Map.PixelsToTiles(animal.x),Map.PixelsToTiles(animal.y));
-							//スライムを踏み台にプレイヤーはジャンプする
+							//動物を踏み台にプレイヤーはジャンプする
 							player.Tread();
 							
-							//スライムを踏んだ音
+							//動物の鳴き声
 							animal.play();
 							player.Add_Score(animal.score);
-							break;
 						}
 						//普通にぶつかったら
 						else{
 							GameOver();
 						}
+						break;
 					}
 				} 
 			}
@@ -174,7 +180,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 			// 休止
 			try {
-				Thread.sleep(40);
+				Thread.sleep(60);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
