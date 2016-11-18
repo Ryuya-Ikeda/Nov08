@@ -9,7 +9,7 @@ public class Coin extends Sprite{
 		super(x,y,fileName,map,mainpanel);
 		
 		//サウンドのロード
-		sound = Applet.newAudioClip(getClass().getResource("music/coin03.wav"));
+		sound = Applet.newAudioClip(getClass().getResource("music/coin.wav"));
 		
 		//スコアの決定(仮に)
 		score = 1000;
