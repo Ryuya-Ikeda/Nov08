@@ -55,11 +55,11 @@ public class Map {
 
 	private MainPanel mainPanel;
 
-		//繝槭ャ繝励繝ュ繝シ繝焔=======
+	//繝槭ャ繝励繝ュ繝シ繝焔=======
 	public Map(String fileName, MainPanel mainPanel){
 		sprites = new LinkedList();
 		this.mainPanel = mainPanel;
-		
+
 		//マップのロード
 		Load(fileName);
 
@@ -196,7 +196,7 @@ public class Map {
 	}
 
 	/**
-	 * 繝槭ャ繝励↓繝槭ャ繝励ヵ繧。繧、繝ォ繧貞渚譏せる。
+	 * 配列にマップデータを反映させる。
 	 * @param map
 	 * @param fileName
 	 */
@@ -205,8 +205,8 @@ public class Map {
 		try{
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					getClass().getResourceAsStream("map/" + fileName)));
-			//マップを作成
 
+			//マップを作成
 			for(int i = 0; i < ROW; i++){
 				line = br.readLine(); //1行読み取り
 				for(int j = 0; j < COL; j++){
@@ -265,7 +265,7 @@ public class Map {
 				next_map[i][j] = next_map[i][j+1];
 			}
 		}
-		
+
 		//空いたスペースを埋める
 		for(int i = 0; i < ROW; i++){
 			next_map[i][COL-1] = str.charAt(0);
@@ -291,25 +291,25 @@ public class Map {
 	}
 
 	/**
-	 * 繝槭ャ繝嶺クュ縺ョ蠑墓焚縺ョ菴咲スョ縺ョ繧ケ繝励Λ繧、繝医ｒ蜑企勁
+	 *配列内からスプライトを削除する
 	 * @param x
 	 * @param y
 	 */
 	public void Sprite_delete(int x, int y){
 		System.out.printf("x:%d y:%d \n", x,y);
 		map[y][x] = ' ';
-		
+
 		for(int i=0;i<ROW;i++){
 			for(int j=0;j<COL;j++){
 				System.out.printf("%c",map[i][j]);
 			}
 			System.out.println("");
 		}
-		
+
 	}
 
 	/**
-	 * 謖㍾ョ壹＠縺滉ス咲スョ縺ョ驟榊縺九ｉ繧ケ繝励Λ繧、繝医ｒ隱ュ縺ソ霎シ縺セ縺帙ｋ
+	 * スプライトの読み込みを行う
 	 * @param i
 	 * @param j
 	 * @param map
@@ -319,9 +319,11 @@ public class Map {
 		case 'o':
 			sprites.add(new Coin((double)TilesToPixels(j), (double)TilesToPixels(i), "coin.gif", this, mainPanel));
 			break;
-			//縺薙蜈域緒逕サ縺吶ｋ繝悶Ο繝け縺ョ遞ョ鬘槭′蠅励∴繧九↑繧芽ソス蜉		}
-	}
+		case 'j':
+			sprites.add(new GrandFather((double)TilesToPixels(j), (double)TilesToPixels(i), "grandfather.png", this, mainPanel));
+			break;
+		}
 	}
 }
 
-		
+

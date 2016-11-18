@@ -11,10 +11,8 @@ import java.io.InputStream;
 
 import javax.swing.JPanel;
 
-
 public class Score{
 
-	
 	private int Width = 192;
 	private int Height = 64;
 	
@@ -42,7 +40,7 @@ public class Score{
 		  
 		  
 		  g2.setFont(Matrs);
-		  g2.drawString("SCORE " + Integer.toString(player.Get_Score()), Map.TilesToPixels(x),Map.TilesToPixels(y));
+		  g2.drawString("SCORE " + Integer.toString(player.score), Map.TilesToPixels(x),Map.TilesToPixels(y));
 	}
 
 	

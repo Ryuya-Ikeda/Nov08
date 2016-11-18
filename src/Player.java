@@ -16,20 +16,18 @@ public class Player extends Sprite{
 	private int speed = 6;
 
 	//ジャンプ力
-
 	private int jump_speed = 20;
 
-	//騾溷コヲ
+	//加速度
 	//protected int vx;
 	protected double vy;
-	
 
-	//蝨ー髱「縺ォ雜ウ縺後▽縺※縺ｋ縺句愛螳嚥	
+	//地面に足がついているか判定
 	private boolean onGround;
 
 	//元のx座標の位置を保持
 	private static double initial_px;
-	
+
 	public Player(double x, double y, String fileName, Map map, MainPanel mainPanel){
 		super(x,y,fileName,map,mainPanel);
 		initial_px = x;
@@ -64,11 +62,7 @@ public class Player extends Sprite{
 	}
 
 	/**
-<<<<<<< HEAD
 	 * 状態を更新
-=======
-	 * 
->>>>>>> 27728db1c9e46f95018787dc2a2f122b18ec97d0
 	 */
 	@Override
 	public void Update(){
@@ -76,7 +70,6 @@ public class Player extends Sprite{
 		vy += Map.GRAVITY;
 		Point tile;
 
-		
 		/*
 		 * ゲームオーバー判定
 		 */
@@ -84,11 +77,11 @@ public class Player extends Sprite{
 			mainPanel.GameOver();
 			return;
 		}
-		
+
 		//x方向の当たり判定
 		//double newX = x /*+ vx*/;//移動先座標を決定
 		/*
-		 * 遘サ蜍募蠎ァ讓吶〒陦晉ェ√☆繧九ち繧、繝ォ縺ョ菴咲スョ繧貞叙蠕		 * x方向だけ考える
+		 * x方向だけ考える
 		 */
 		//tile = map.GetTileCllision(this, newX, y);
 
@@ -104,7 +97,7 @@ public class Player extends Sprite{
 			//vx = 0; //速度を0へ
 		}
 
-		//y譁ケ蜷代蠖薙◆繧雁愛螳		
+		//y方向のあたり判定	
 		double newY = y + vy;
 		/*
 		 * 移動先座標で衝突するタイルの位置を取得
@@ -128,31 +121,31 @@ public class Player extends Sprite{
 				vy = 0;
 			}
 		}
-		
+
 	}
 
 	/**
 	 * プレイヤーを描画（オーバーライド）
 	 */
-    public void Draw(Graphics g, int relativeX, int relativeY) {
-        g.drawImage(image,
-                (int)x + relativeX,
-                (int)y + relativeY,
-                (int)x + relativeX + width,
-                (int)y + relativeY + height,
-                count * width, 0,
-                count * width + width, height,
-                null);
-    }
+	public void Draw(Graphics g, int relativeX, int relativeY) {
+		g.drawImage(image,
+				(int)x + relativeX,
+				(int)y + relativeY,
+				(int)x + relativeX + width,
+				(int)y + relativeY + height,
+				count * width, 0,
+				count * width + width, height,
+				null);
+	}
 
-    /**
-     * スコアを加算
-     * @param score
-     */
+	/**
+	 * スコアを加算
+	 * @param score
+	 */
 	public void Add_Score(int score){
 		this.score += score;
 	}
-	
+
 	public boolean next_Contact(Sprite sprite){
 		Rectangle player = new Rectangle((int)x + map.TILE_SIZE, (int)y, width, height);
 		Rectangle spriteRect = new Rectangle((int)sprite.GetX(), (int)sprite.GetY(), sprite.GetWidth(), sprite.GetHeight());

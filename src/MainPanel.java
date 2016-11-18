@@ -5,8 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.concurrent.Delayed;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -24,7 +22,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 640;
-
 
 	//スコア
 	private Score score;
@@ -45,15 +42,11 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 	public MainPanel(){
 
-		//繝代ロ繝ォ縺ョ謗ィ螂ィ繧オ繧、繧コ繧呈アコ螳壹自動で画面サイズを決める"pack()"を使うのに必要
-
+		//自動で画面サイズを決める"pack()"を使うのに必要
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		//キー入力を許すようにする
 		setFocusable(true);
 
-
-
-		
 		//マップ作成
 		map = new Map("map01.dat",this);
 
@@ -62,8 +55,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 		//スコア表示
 		score = new Score(player);
-		
-				// キーイベントリスナーを登録
+
+		// キーイベントリスナーを登録
 		addKeyListener(this);
 
 		// ゲームループ開始
@@ -99,7 +92,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 				// スプライトの状態を更新する
 				sprite.Update();
 
-				
 				// プレイヤーと接触してたら
 				if (player.Contact(sprite)) {
 
@@ -110,14 +102,26 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 						// コインは消える
 						sprites.remove(coin);
 						map.Sprite_delete(Map.PixelsToTiles(coin.x),Map.PixelsToTiles(coin.y));
-						
+
 						// ちゃり〜ん
 						coin.play();
 						player.Add_Score(coin.score);
 						// spritesから削除したので
 						// breakしないとiteratorがおかしくなる
 						break;
-					} 
+					}
+					else if(sprite instanceof GrandFather){
+						GrandFather gf = (GrandFather)sprite;
+						
+						// 爺さんは亡くなる
+						sprites.remove(gf);
+						map.Sprite_delete(Map.PixelsToTiles(gf.x),Map.PixelsToTiles(gf.y));
+						
+						// ゴキッ
+						gf.play();
+						player.Add_Score(gf.score);
+						break;
+					}
 				} 
 			}
 
@@ -125,7 +129,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 			// 再描画
 			repaint();
-			
+
 			// 休止
 			try {
 				Thread.sleep(40);
@@ -144,7 +148,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 
 	/**
-<<<<<<< HEAD
 	 * 描画処理
 	 */
 
@@ -174,7 +177,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 		// プレイヤーを描画
 		player.Draw(g, relativeX, relativeY);
-		
+
 		//スコアを描画
 		score.Draw(g);
 
@@ -211,7 +214,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	public void keyTyped(KeyEvent arg0) {
 	}
 
-
 	/**
 	 * ゲームオーバーの処理
 	 */
@@ -219,6 +221,4 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 		JOptionPane.showMessageDialog(null, "GAME_OVER");
 		stop();
 	}
-
-
 }

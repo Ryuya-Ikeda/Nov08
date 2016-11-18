@@ -72,12 +72,12 @@ public abstract class Sprite {
     }
 
 	/**
-	 * 迚ゥ菴薙迥カ諷九ｒ譖エ譁ー
+	 * 状態の更新
 	 */
 	public abstract void Update();
 
 	/**
-	 * 謠冗判
+	 * 描画
 	 * @param g
 	 * @param relative_x
 	 * @param relative_y
@@ -95,7 +95,7 @@ public abstract class Sprite {
 	}
 
 	/**
-	 * 莉悶迚ゥ菴薙→縺カ縺、縺九▲縺ヲ縺ｋ縺	 * @param sprite
+	 * @param sprite
 	 * @return
 	 */
 	public boolean Contact(Sprite sprite){
@@ -136,8 +136,5 @@ public abstract class Sprite {
 
 		}
 	}
-	
-	public int Get_Score(){
-		return score;
-	}
+
 }

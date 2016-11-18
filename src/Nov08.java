@@ -15,7 +15,7 @@ public class Nov08 extends JFrame{
 		//サイズ変更不可
 		setResizable(false);
 		
-		//繝。繧、繝ウ繝代ロ繝ォ繧剃ス懈縲√ヵ繝ャ繝シ繝追加
+		//ゲームの準備
 		MainPanel panel = new MainPanel();
 		Container contentPane = getContentPane();
 		contentPane.add(panel);
