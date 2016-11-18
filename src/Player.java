@@ -5,26 +5,29 @@ import java.awt.Rectangle;
 import javax.swing.JOptionPane;
 
 /**
- * ƒQ[ƒ€‚ÌålŒö‚Ìİ’è
- * ƒ}ZƒI,ƒZƒI
+ * ã‚²ãƒ¼ãƒ ã®ä¸»äººå…¬ã®è¨­å®š
+ * ãƒã€‡ã‚ª,ãƒ¯ã€‡ã‚ª
  * @author riked
  *
  */
 
 public class Player extends Sprite{
-	//ƒXƒs[ƒh
+	//ã‚¹ãƒ”ãƒ¼ãƒ‰
 	private int speed = 6;
-	//ƒWƒƒƒ“ƒv—Í
+
+	//ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
+
 	private int jump_speed = 20;
 
-	//‘¬“x
+	//é¨¾æº·ã‚³ãƒ²
 	//protected int vx;
 	protected double vy;
+	
 
-	//’n–Ê‚É‘«‚ª‚Â‚¢‚Ä‚¢‚é‚©”»’è
+	//è¨ãƒ¼é«±ã€Œç¸ºã‚©é›œã‚¦ç¸ºå¾Œâ–½ç¸ºâ€»ç¸ºï½‹ç¸ºå¥æ„›è³åš¥	
 	private boolean onGround;
 
-	//Œ³‚ÌxÀ•W‚ÌˆÊ’u‚ğ•Û
+	//å…ƒã®xåº§æ¨™ã®ä½ç½®ã‚’ä¿æŒ
 	private static double initial_px;
 	
 	public Player(double x, double y, String fileName, Map map, MainPanel mainPanel){
@@ -36,86 +39,91 @@ public class Player extends Sprite{
 	}
 
 	/**
-	 * ’â~
+	 * è››æ‡ˆãƒ¥ã€Œ
 	 */
 	public void Stop(){
 		//vx = 0;
 	}
 
 	/**
-	 * ‰Á‘¬
+	 * èœ‰
 	 */
 	public void Accelerate(){
 		//vx = speed;
 	}
 
 	/**
-	 * ƒWƒƒƒ“ƒv‚·‚é
+	 * ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹
 	 */
 	public void Jump(){
 		if(onGround){
-			//ãŒü‚«‚É‘¬“x‚ğ’Ç‰Á(java‚Å‚Í“Vˆä‚ª0‚¾‚©‚ç)
+			//ä¸Šå‘ãã«é€Ÿåº¦ã‚’è¿½åŠ (javaã§ã¯å¤©äº•ãŒ0ã ã‹ã‚‰)
 			vy = -jump_speed;
 			onGround = false;
 		}
 	}
 
 	/**
+<<<<<<< HEAD
+	 * çŠ¶æ…‹ã‚’æ›´æ–°
+=======
 	 * 
+>>>>>>> 27728db1c9e46f95018787dc2a2f122b18ec97d0
 	 */
 	@Override
 	public void Update(){
-		//d—Í‚Å‰ºŒü‚«‚É‰Á‘¬“x‚ª‚©‚©‚é
+		//é‡åŠ›ã§ä¸‹å‘ãã«åŠ é€Ÿåº¦ãŒã‹ã‹ã‚‹
 		vy += Map.GRAVITY;
 		Point tile;
+
 		
 		/*
-		 * ƒQ[ƒ€ƒI[ƒo[”»’è
+		 * ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼åˆ¤å®š
 		 */
 		if(x<0 || y > MainPanel.HEIGHT || y < 0){
 			mainPanel.GameOver();
 			return;
 		}
 		
-		//x•ûŒü‚Ì“–‚½‚è”»’è
-		//double newX = x /*+ vx*/;//ˆÚ“®æÀ•W‚ğŒˆ’è
+		//xæ–¹å‘ã®å½“ãŸã‚Šåˆ¤å®š
+		//double newX = x /*+ vx*/;//ç§»å‹•å…ˆåº§æ¨™ã‚’æ±ºå®š
 		/*
-		 * ˆÚ“®æÀ•W‚ÅÕ“Ë‚·‚éƒ^ƒCƒ‹‚ÌˆÊ’u‚ğæ“¾
-		 * x•ûŒü‚¾‚¯l‚¦‚é
+		 * é˜ã‚µèœå‹Ÿè ã‚¡è®“å¶ã€’é™¦æ™‰ã‚§âˆšâ˜†ç¹§ä¹ã¡ç¹§ã€ç¹ã‚©ç¸ºãƒ§è´å’²ã‚¹ãƒ§ç¹§è²å™è •		 * xæ–¹å‘ã ã‘è€ƒãˆã‚‹
 		 */
 		//tile = map.GetTileCllision(this, newX, y);
+
 		tile = map.GetTileCllision(this, x, y);
-		//Õ“Ë‚·‚éƒ^ƒCƒ‹‚ª‚È‚¢‚Ì‚Å
+		//è¡çªã™ã‚‹ã‚¿ã‚¤ãƒ«ãŒãªã„ã®ã§
 		if(tile == null){
 			if(x < initial_px){
-				x += 2; //x•ûŒü‚Éi‚ß‚é
+				x += 2; //xæ–¹å‘ã«é€²ã‚ã‚‹
 			}
 		} else {
-			//Õ“Ë‚·‚éƒ^ƒCƒ‹‚ª‚ ‚é‚Ì‚ÅƒuƒƒbƒN‚É‚ß‚è‚Ü‚È‚¢‚æ‚¤‚ÉˆÊ’u’²®
+			//è¡çªã™ã‚‹ã‚¿ã‚¤ãƒ«ãŒã‚ã‚‹ã®ã§ãƒ–ãƒ­ãƒƒã‚¯ã«ã‚ã‚Šè¾¼ã¾ãªã„ã‚ˆã†ã«ä½ç½®èª¿æ•´
 			x = Map.TilesToPixels(tile.x) - width;
-			//vx = 0; //‘¬“x‚ğ0‚Ö
+			//vx = 0; //é€Ÿåº¦ã‚’0ã¸
 		}
 
-		//y•ûŒü‚Ì“–‚½‚è”»’è
+		//yè­ã‚±èœ·ä»£è –è–™â—†ç¹§é›æ„›è³		
 		double newY = y + vy;
 		/*
-		 * ˆÚ“®æÀ•W‚ÅÕ“Ë‚·‚éƒ^ƒCƒ‹‚ÌˆÊ’u‚ğæ“¾
-		 * y•ûŒü‚¾‚¯l‚¦‚é
+		 * ç§»å‹•å…ˆåº§æ¨™ã§è¡çªã™ã‚‹ã‚¿ã‚¤ãƒ«ã®ä½ç½®ã‚’å–å¾—
+		 * yæ–¹å‘ã ã‘è€ƒãˆã‚‹
 		 */
 		tile = map.GetTileCllision(this, x, newY);
-		//Õ“Ë‚·‚éƒ^ƒCƒ‹‚ª‚È‚¢‚Ì‚Å
+		//è¡çªã™ã‚‹ã‚¿ã‚¤ãƒ«ãŒãªã„ã®ã§
 		if(tile == null){
-			y = newY;//ˆÚ“®
-			onGround = false;//‹ó’†‚É‚¢‚é‚Æ•ª‚©‚é‚Ì‚Å
+			y = newY;//ç§»å‹•
+			onGround = false;//ç©ºä¸­ã«ã„ã‚‹ã¨åˆ†ã‹ã‚‹ã®ã§
 		} else {
-			//Õ“Ë‚·‚éƒ^ƒCƒ‹‚ª‚ ‚é‚Ì‚Å
-			if(vy > 0){ //‰º‚ÖˆÚ“®’†
-				//ˆÊ’u’²®
+			//è¡çªã™ã‚‹ã‚¿ã‚¤ãƒ«ãŒã‚ã‚‹ã®ã§
+			if(vy > 0){ //ä¸‹ã¸ç§»å‹•ä¸­
+				//ä½ç½®èª¿æ•´
 				y = Map.TilesToPixels(tile.y) - height;
-				vy = 0; //’…’n‚µ‚½‚Ì‚Åy•ûŒü‘¬“x‚ğ0‚Ö
-				onGround = true; //’…’nƒtƒ‰ƒO‚ğ—§‚Ä‚é
-			} else if(vy < 0){ //“Vˆä‚Ö‚Ô‚Â‚©‚Á‚½‚Ì‚Å
-				//ã‚ÖˆÚ“®’†
+				vy = 0; //ç€åœ°ã—ãŸã®ã§yæ–¹å‘é€Ÿåº¦ã‚’0ã¸
+				onGround = true; //ç€åœ°ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
+			} else if(vy < 0){ //å¤©äº•ã¸ã¶ã¤ã‹ã£ãŸã®ã§
+				//ä¸Šã¸ç§»å‹•ä¸­
 				y = Map.TilesToPixels(tile.y + 1);
 				vy = 0;
 			}
@@ -124,7 +132,7 @@ public class Player extends Sprite{
 	}
 
 	/**
-	 * ƒvƒŒƒCƒ„[‚ğ•`‰æiƒI[ƒo[ƒ‰ƒCƒhj
+	 * ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æç”»ï¼ˆã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ï¼‰
 	 */
     public void Draw(Graphics g, int relativeX, int relativeY) {
         g.drawImage(image,
@@ -138,7 +146,7 @@ public class Player extends Sprite{
     }
 
     /**
-     * ƒXƒRƒA‚ğ‰ÁZ
+     * ã‚¹ã‚³ã‚¢ã‚’åŠ ç®—
      * @param score
      */
 	public void Add_Score(int score){

@@ -5,37 +5,37 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 /**
- * •¨‘Ì‚Ì’ŠÛƒNƒ‰ƒX
- * ålŒö‚â“GƒLƒƒƒ‰ƒNƒ^[A‚»‚Ì‘¼ƒIƒuƒWƒFƒNƒg‚È‚Ç‚Í
- * ‚·‚×‚Ä‚±‚ÌƒNƒ‰ƒX‚ğŒp³‚µ‚Äì‚é
- * ‚½‚¾‚µAƒuƒƒbƒN‚Í‚©‚È‚è”‚ª‘½‚¢‚Ì‚ÅÈ‚­B
+ * ç‰©ä½“ã®æŠ½è±¡ã‚¯ãƒ©ã‚¹
+ * ä¸»äººå…¬ã‚„æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã€ãã®ä»–ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãªã©ã¯
+ * ã™ã¹ã¦ã“ã®ã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œã‚‹
+ * ãŸã ã—ã€ãƒ–ãƒ­ãƒƒã‚¯ã¯ã‹ãªã‚Šæ•°ãŒå¤šã„ã®ã§çœãã€‚
  * @author riked
  *
  */
 public abstract class Sprite {
 
-	//ˆÊ’u
+	//ä½ç½®
 	protected double x;
 	protected double y;
 
-	//•
+	//å¹…
 	protected int width;
-	//‚‚³
+	//é«˜ã•
 	protected int height;
 
-	//‰æ‘œ
+	//ç”»åƒ
 	protected Image image;
 
-	//ƒJƒEƒ“ƒ^(ƒAƒjƒ[ƒVƒ‡ƒ“—p,2‚ÂˆÈã‚Ì‰æ‘œ‚ğŒğŒİ‚É•\¦‚·‚é—p)
+	//ã‚«ã‚¦ãƒ³ã‚¿(ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨,2ã¤ä»¥ä¸Šã®ç”»åƒã‚’äº¤äº’ã«è¡¨ç¤ºã™ã‚‹ç”¨)
 	protected int count;
 
-	//ƒ}ƒbƒv‚Ö‚ÌQÆ
+	//ãƒãƒƒãƒ—ã¸ã®å‚ç…§
 	protected Map map;
 	
-	//MainPanel‚Ö‚ÌQÆ
+	//MainPanelã¸ã®å‚ç…§
 	protected MainPanel mainPanel;
 	
-	//ƒXƒRƒA
+	//ã‚¹ã‚³ã‚¢
 	protected int score = 0;
 
 	public Sprite(double x, double y, String fileName, Map map, MainPanel mainPanel){
@@ -72,12 +72,12 @@ public abstract class Sprite {
     }
 
 	/**
-	 * •¨‘Ì‚Ìó‘Ô‚ğXV
+	 * è¿šã‚¥è´è–™è¿¥ã‚«è«·ä¹ï½’è­–ã‚¨è­ãƒ¼
 	 */
 	public abstract void Update();
 
 	/**
-	 * •`‰æ
+	 * è¬ å†—åˆ¤
 	 * @param g
 	 * @param relative_x
 	 * @param relative_y
@@ -95,20 +95,19 @@ public abstract class Sprite {
 	}
 
 	/**
-	 * ‘¼‚Ì•¨‘Ì‚Æ‚Ô‚Â‚©‚Á‚Ä‚¢‚é‚©
-	 * @param sprite
+	 * è‰æ‚¶è¿šã‚¥è´è–™â†’ç¸ºã‚«ç¸ºã€ç¸ºä¹â–²ç¸ºãƒ²ç¸ºï½‹ç¸º	 * @param sprite
 	 * @return
 	 */
 	public boolean Contact(Sprite sprite){
 		Rectangle player = new Rectangle((int)x, (int)y, width, height);
-		Rectangle spriteRect = new Rectangle((int)sprite.GetX(), (int)sprite.GetY(), sprite.GetWidth(), sprite.GetHeight());
+		Rectangle spriteRect = new Rectangle((int)sprite.GetX() - Map.TilesToPixels(1), (int)sprite.GetY() - Map.TilesToPixels(1), sprite.GetWidth(), sprite.GetHeight());
 		if(player.intersects(spriteRect)){
 			return true;
 		} else { return false; }
 	}
 
 	/**
-	 * ‰æ‘œ‚ğƒ[ƒh
+	 * ç”»åƒã‚’ãƒ­ãƒ¼ãƒ‰
 	 * @param fileName
 	 */
 	private void LoadImage(String fileName){
@@ -117,21 +116,21 @@ public abstract class Sprite {
 	}
 
 	/**
-	 * ƒAƒjƒ[ƒVƒ‡ƒ“•\¦‚ğs‚¤‚½‚ß‚ÌƒXƒŒƒbƒh
+	 * ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¡¨ç¤ºã‚’è¡Œã†ãŸã‚ã®ã‚¹ãƒ¬ãƒƒãƒ‰
 	 * @author riked
 	 *
 	 */
 	private class AnimationThread extends Thread{
 		public void run(){
 			while(true){
-				//countØ‚è‘Ö‚¦
+				//countåˆ‡ã‚Šæ›¿ãˆ
 				if(count == 0) { count = 1; }
 				else if (count == 1){ count = 0; }
 
 				try{
 					Thread.sleep(300);
 				} catch (InterruptedException e){
-					e.printStackTrace(); //—áŠOî•ñ‚ğo—Í
+					e.printStackTrace(); //ä¾‹å¤–æƒ…å ±ã‚’å‡ºåŠ›
 				}
 			}
 
