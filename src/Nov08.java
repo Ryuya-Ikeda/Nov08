@@ -8,6 +8,7 @@ import javax.swing.JFrame;
  * 基本的にいじる必要ない。。。はず
  */
 public class Nov08 extends JFrame{
+	private static Container contentPane;
 	public Nov08(){
 
 		//タイトル
@@ -17,7 +18,7 @@ public class Nov08 extends JFrame{
 		
 		//ゲームの準備
 		MainPanel panel = new MainPanel();
-		Container contentPane = getContentPane();
+		contentPane = getContentPane();
 		contentPane.add(panel);
 		
 		//パネルサイズに合わせてフレームサイズを自動決定
@@ -32,5 +33,14 @@ public class Nov08 extends JFrame{
 		Nov08 frame = new Nov08();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+	}
+	
+	public static void Content(MainPanel panel){
+		contentPane.remove(panel);
+		panel.setVisible(false);
+		MainPanel newGame = new MainPanel();
+		contentPane.add(newGame);
+		newGame.setVisible(true);
+		contentPane.validate();
 	}
 }

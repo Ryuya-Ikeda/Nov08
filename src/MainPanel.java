@@ -1,4 +1,8 @@
-﻿import java.awt.Color;
+﻿import java.applet.Applet;
+import java.applet.AudioClip;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -38,7 +42,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	// ゲームループ用スレッド
 	private Thread gameLoop;
 
-	//private static boolean gameflag = true; //ゲームの続行フラグ
+	private AudioClip sound;
 
 	public MainPanel(){
 
@@ -59,6 +63,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 		// キーイベントリスナーを登録
 		addKeyListener(this);
 
+		sound = Applet.newAudioClip(getClass().getResource("music/bgm.wav"));
+		
 		// ゲームループ開始
 		start();
 	}
@@ -67,6 +73,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 		if(gameLoop == null){
 			gameLoop = new Thread(this);
 			gameLoop.start();
+			sound.loop();
 		}
 	}
 
@@ -260,7 +267,10 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 	 * ゲームオーバーの処理
 	 */
 	public void GameOver(){
+		sound.stop();
 		JOptionPane.showMessageDialog(null, "GAME_OVER");
 		stop();
+		this.setVisible(false);
+		Nov08.Content(this);
 	}
 }

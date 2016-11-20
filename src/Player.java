@@ -93,7 +93,7 @@ public class Player extends Sprite{
 			}
 		} else {
 			//衝突するタイルがあるのでブロックにめり込まないように位置調整
-			x = Map.TilesToPixels(tile.x) - width*2;
+			x = Map.TilesToPixels(tile.x) - width*1.4;
 			//vx = 0; //速度を0へ
 		}
 
