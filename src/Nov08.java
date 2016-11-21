@@ -35,12 +35,17 @@ public class Nov08 extends JFrame{
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * ゲームのリトライ
+	 * @param panel
+	 */
 	public static void Content(MainPanel panel){
 		contentPane.remove(panel);
 		panel.setVisible(false);
 		MainPanel newGame = new MainPanel();
 		contentPane.add(newGame);
 		newGame.setVisible(true);
+		newGame.requestFocus();
 		contentPane.validate();
 	}
 }

@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
  */
 
 public class Player extends Sprite{
+	private static final Graphics Graphics = null;
+
 	//スピード
 	private int speed = 6;
 
@@ -64,6 +66,7 @@ public class Player extends Sprite{
 	/**
 	 * 状態を更新
 	 */
+	
 	@Override
 	public void Update(){
 		//重力で下向きに加速度がかかる
@@ -73,6 +76,7 @@ public class Player extends Sprite{
 		/*
 		 * ゲームオーバー判定
 		 */
+		
 		if(x<0 || y > MainPanel.HEIGHT || y < 0){
 			mainPanel.GameOver();
 			return;
