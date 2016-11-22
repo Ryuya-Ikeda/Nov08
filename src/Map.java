@@ -19,7 +19,7 @@ public class Map {
 	//タイルの大きさ
 	public static final int TILE_SIZE = 32;
 	//重力
-	public static final double GRAVITY = 1.0;
+	public static final double GRAVITY = 3;
 
 	//マップ
 	private char[][] map;
@@ -50,7 +50,7 @@ public class Map {
 	private int update_map_num = 0;
 
 	//マップの数
-	private static final int MAP_NUM = 1;
+	private static final int MAP_NUM = 10;
 	
 	private MainPanel mainPanel;
 
@@ -62,8 +62,7 @@ public class Map {
 		Load(fileName);
 
 		//控えのマップのロード
-		//Reflection(next_map, "map" + (rnd.nextInt(MAP_NUM) + 1) + ".dat");
-		Reflection(next_map, fileName);
+		Reflection(next_map, "map0" + Integer.toString(rnd.nextInt(MAP_NUM)) + ".dat");
 		width = TILE_SIZE * COL;
 		height = TILE_SIZE * ROW;
 
@@ -178,8 +177,8 @@ public class Map {
 		try{
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					getClass().getResourceAsStream("map/" + fileName)));
+			
 			//マップを作成
-
 			for(int i = 0; i < ROW; i++){
 				line = br.readLine(); //1行読み取り
 				for(int j = 0; j < COL; j++){
@@ -199,6 +198,7 @@ public class Map {
 	 * @param fileName
 	 */
 	public void Reflection(char map[][], String fileName){
+		System.out.printf("%s\n",fileName);
 		String line;//ファイル読み込み用
 		try{
 			BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -281,7 +281,7 @@ public class Map {
 
 		update_map_num++;
 		if(update_map_num == COL){
-			Reflection(next_map, "map01.dat");
+			Reflection(next_map, "map0" + Integer.toString(rnd.nextInt(MAP_NUM)) + ".dat");
 			update_map_num = 0;
 		}
 	}

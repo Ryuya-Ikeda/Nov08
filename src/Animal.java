@@ -22,7 +22,7 @@ public class Animal extends Sprite{
 	
 	public Animal(double x, double y, String fileName, Map map, MainPanel mainpanel) {
 		super(x,y,fileName,map,mainpanel);
-		score = 200;
+		score = 300;
 		rnd = new Random();
 
 		//ぶつかったときの効果音

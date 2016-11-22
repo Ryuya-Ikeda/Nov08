@@ -1,8 +1,4 @@
-import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
-
-import javax.swing.JOptionPane;
 
 /**
  * ゲームの主人公の設定
@@ -12,13 +8,8 @@ import javax.swing.JOptionPane;
  */
 
 public class Player extends Sprite{
-	private static final Graphics Graphics = null;
-
-	//スピード
-	private int speed = 6;
-
 	//ジャンプ力
-	private int jump_speed = 20;
+	private int jump_speed = 30;
 
 	//加速度
 	//protected int vx;
@@ -93,7 +84,7 @@ public class Player extends Sprite{
 		//衝突するタイルがないので
 		if(tile == null){
 			if(x < initial_px){
-				x += 2; //x方向に進める
+				x += 5; //x方向に進める
 			}
 		} else {
 			//衝突するタイルがあるのでブロックにめり込まないように位置調整

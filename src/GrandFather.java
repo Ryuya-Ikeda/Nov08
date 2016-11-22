@@ -17,7 +17,7 @@ public class GrandFather extends Sprite{
 
 	public GrandFather(double x, double y, String fileName, Map map, MainPanel mainpanel) {
 		super(x,y,fileName,map,mainpanel);
-		score = 50;
+		score = 100;
 		rnd = new Random();
 
 		//ぶつかったときの効果音

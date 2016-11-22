@@ -18,7 +18,7 @@ public class Slime extends Sprite{
 
 	public Slime(double x, double y, String fileName, Map map, MainPanel mainpanel) {
 		super(x,y,fileName,map,mainpanel);
-		score = 100;
+		score = 200;
 		rnd = new Random();
 
 		//ぶつかったときの効果音

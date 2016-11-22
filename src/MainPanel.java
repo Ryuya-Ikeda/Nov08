@@ -68,9 +68,9 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 		setFocusable(true);
 
 		// マップ作成
-		map = new Map("map01.dat",this);
+		map = new Map("start.dat",this);
 
-		player = new Player(320, 32, "player.gif", map, this);
+		player = new Player(400, 32, "player.gif", map, this);
 
 		// スコア表示
 		score = new Score(player);
@@ -101,8 +101,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 			if(upPressed){
 				player.Jump();
 			}
-			// プレイヤーの状態を更新
-			player.Update();
 
 			// マップにいるスプライトを取得
 			LinkedList sprites = map.GetSprites();            
@@ -193,7 +191,9 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 					}
 				} 
 			}
-
+			// プレイヤーの状態を更新
+			player.Update();
+			
 			map.Lotation();
 
 			// 再描画
@@ -201,7 +201,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 			// 休止
 			try {
-				Thread.sleep(60);
+				Thread.sleep(65);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
