@@ -11,9 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Iterator;
@@ -55,7 +59,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 	//ボタン
 	private JButton bt1;
-	
+
 	private boolean resultflag = false;
 	private boolean menuflag = true;
 	private boolean toggleflag = false;	//スタートメニューのフラグ
@@ -77,7 +81,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 		// キーイベントリスナーを登録
 		addKeyListener(this);
-		
+
 		// BGMを設定
 		sound = Applet.newAudioClip(getClass().getResource("music/bgm.wav"));
 
@@ -193,7 +197,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 			}
 			// プレイヤーの状態を更新
 			player.Update();
-			
+
 			map.Lotation();
 
 			// 再描画
@@ -342,12 +346,12 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 		this.setVisible(false);
 		Nov08.Content(this);
 	}
-	*/
+	 */
 	public void NewGame(){
 		this.setVisible(false);
 		Nov08.Content(this);
 	}
-	
+
 	public void result_show(Graphics g){
 
 		String str;
@@ -363,7 +367,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 				NewGame();
 			}
 		});
-		
+
 		addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {}
@@ -459,37 +463,66 @@ public class MainPanel extends JPanel implements Runnable, KeyListener{
 
 		try{
 
-			File f1 = new File("src/score/ranking.txt");
-			File f2 = new File("src/score/tmp.txt");
+			File f1 = new File("/score/ranking.txt");
+			File f2 = new File("/score/tmp.txt");
 
-			BufferedReader br = new BufferedReader(new FileReader(f1)); //ランキング保存ファイル
-			BufferedWriter bw = new BufferedWriter(new FileWriter(f2)); //更新後スコアの一時ファイル
+			File newf = new File("/score");
+
+			if(!newf.exists()){
+				newf.mkdirs();
+				f1.createNewFile();
+				f2.createNewFile();
+			}
+
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f1),"UTF-8")); //ランキング保存ファイル
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f2),"UTF-8")); //更新後スコアの一時ファイル
 
 			String str = null;
 
-			//更新後のスコアを反映
-			while((str = br.readLine()) != null){
 
-				int p_score = player.score;
-				if( (Integer.parseInt(str) < p_score || Integer.parseInt(str) == p_score) && fl == 0){
-					str = String.valueOf(p_score);
-					bw.write(String.valueOf(p_score));
-					fl = 1;
-				}
-
-				else{
-					bw.write(str);
-				}
-
-				g2.drawString(i +  "   " + str, (this.WIDTH - getStringWidth(str+i,g2)) / 2, height + (i-1) * 30);
-				bw.newLine();
+			if(f1.length() == 0){
+				bw.write(player.score + "\n");
+				g2.drawString(i +  "   " + player.score, (this.WIDTH - getStringWidth(str+i,g2)) / 2, height + (i-1) * 30);
 				i++;
+				for(int j=1;j<5;j++){
+					bw.write("0\n");
+					g2.drawString(i +  "   " + "0", (this.WIDTH - getStringWidth(str+i,g2)) / 2, height + (i-1) * 30);
+					i++;
+				}
+			}
+
+			else
+			{
+				//プレイヤーのスコア
+				int p_score = player.score; 
+				//更新後のスコアを反映
+				for(int j = 0;j < 5; j++){
+					str = br.readLine();
+					if(str == "") str = "0";
+					if( (Integer.parseInt(str) < p_score || Integer.parseInt(str) == p_score) && fl == 0){
+						bw.write(String.valueOf(p_score));
+						g2.drawString(i +  "   " + p_score, (this.WIDTH - getStringWidth(str+i,g2)) / 2, height + (i-1) * 30);
+						bw.newLine();
+						bw.write(String.valueOf(str));
+						fl = 1;
+						i++;
+						j++; //5つまでしかスコアは保持しない。通常より、描画するスコアが多いから
+					}
+					else{
+						bw.write(String.valueOf(str));
+					}
+					g2.drawString(i +  "   " + str, (this.WIDTH - getStringWidth(str+i,g2)) / 2, height + (i-1) * 30);
+					bw.newLine();
+					i++;
+				}
 			}
 
 			br.close();
 			bw.close();
 
 			f1.delete();
+
 			f2.renameTo(f1);
 
 		}catch(IOException e){
